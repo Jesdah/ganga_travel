@@ -34,7 +34,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ganga-travel-5947dd277fb2.herokuapp.com', '8000-jesdah-gangatravel-7baiz0yq6dy.ws-eu102.gitpod.io']
+ALLOWED_HOSTS = ['ganga-travel-5947dd277fb2.herokuapp.com', '8000-jesdah-gangatravel-uqdvioeahpr.ws-eu102.gitpod.io']
 
 
 # Application definition
