@@ -34,7 +34,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ganga-travel-5947dd277fb2.herokuapp.com', '8000-jesdah-gangatravel-uqdvioeahpr.ws-eu102.gitpod.io']
+ALLOWED_HOSTS = ['ganga-travel-5947dd277fb2.herokuapp.com', '8000-jesdah-gangatravel-mdtbvglxa6j.ws-eu102.gitpod.io']
 
 
 # Application definition
@@ -45,9 +45,15 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'crispy_forms',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'django_summernote',
     'blog',
 ]
 
