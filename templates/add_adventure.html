@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Add an Adventure:</h1>
+    <form method="POST" action="add">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+            <p>
+                <button type="submit">Add Adventure</button>
+            </p>
+        </div>
+    </form>
+
+{%endblock%}

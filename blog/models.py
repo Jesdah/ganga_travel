@@ -9,7 +9,7 @@ class Adventure(models.Model):
     date= models.DateField()
     
     class Meta:
-        ordering=['-date']
+        ordering=['date']
 
     def __str__(self):
         return self.name
