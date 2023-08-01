@@ -27,4 +27,5 @@ urlpatterns = [
     path('delete/<adventure_id>', views.delete_adventure, name='delete'),
     path('summernote/', include('django_summernote.urls')),
     path("accounts/", include("allauth.urls")),
+    path('post.html', views.get_post_list, name='posts'),
 ]

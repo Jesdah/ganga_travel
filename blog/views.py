@@ -53,12 +53,19 @@ def delete_adventure(request, adventure_id):
     adventure.delete()
     return redirect('get_adventure_list')
 
-class PostList(generic.ListView):
-    model = Post
-    queryset = Post.objects.order_by("created_on")
-    template_name = ""
-    paginate_by = 6
+# class PostList(generic.ListView):
+#     model = Post
+#     queryset = Post.objects.order_by("created_on")
+#     template_name = "edit_adventure.html"
+#     paginate_by = 6
 
+def get_post_list(request):
+
+    posts = Post.objects.all()
+    context= {
+        'posts': posts
+    }
+    return render(request, 'post.html', context)
 
 # class PostDetail(View):
 
