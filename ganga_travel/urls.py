@@ -21,7 +21,10 @@ from blog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", views.AdventureList, name="get_adventure_list"),
+    path("", views.get_adventure_list, name="get_adventure_list"),
+    path('add', views.add_adventure, name='add'),
+    path('edit/<adventure_id>', views.edit_adventure, name = 'edit'),
+    path('delete/<adventure_id>', views.delete_adventure, name='delete'),
     path('summernote/', include('django_summernote.urls')),
     path("accounts/", include("allauth.urls")),
 ]

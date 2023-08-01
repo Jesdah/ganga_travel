@@ -1,22 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% for adventure in adventure_list %}
-<h3>{{ adventure.name }}</h3>
-{% endfor %}
-{% for post in post_list %}
-<h3>{{ post.title }}</h3>
-<p>{{ post.content }}</p>
-<p>{{ post.updated_on}}</p>
-<p>{{ post.created_on }}</p>
-<p>{{ post.author }}</p>
-{{ post.likes }}
-<button id="edit">Edit</button>
-<button id="delete">Delete</button>
-{% endfor %}
+<h1>Your Adventures</h1>
+<table>
+    {% for adventure in adventures %}
+        <tr>
+            <td>
+            {{ adventure.name }}
+            {{ adventure.date }}
+            </td>
+            <td>
+                <a href="/edit/{{ adventure.id }}">
+                <button>Edit</button></td>
+                </a>
+            <td>
+                <a href="/delete/{{ adventure.id }}">
+                    <button>Delete</button></td>
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td>You have no Adventures planed.</td></tr>
 
-<!-- {% for comment in comments_list %}
-<h5>{{ comment.post }}</h5>
-{% endfor %} -->
-
+    {% endfor %}
+</table>
+<a href="/add">Add an Adventure</a>
 {% endblock %}

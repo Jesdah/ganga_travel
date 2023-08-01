@@ -1,62 +1,62 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse,  redirect
 from django.views import generic, View
 from django.http import HttpResponseRedirect
 from .models import Post, Adventure
-from .forms import CommentForm, AdventureForm, CommentForm
+from .forms import CommentForm, AdventureForm, PostForm
 
 
-class AdventureList(View):
-    model = Adventure
-    queryset = Adventure.objects.order_by("date")
-    template_name = "index.html"
-    paginate_by = 6
+# class AdventureList(Adventure):
+#     model = Adventure
+#     queryset = Adventure.objects.order_by("date")
+#     template_name = "index.html"
+#     paginate_by = 6
 
 
-    def get_adventure_list(request):
+def get_adventure_list(request):
 
-        adventure = Adventure.objects.all()
-        context= {
-            'adventure': adventure
-        }
-        return render(request, 'index.html', context)
-
-
-    def add_adventure(request):
-        if request.method == 'POST':
-            form= Adventureform(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('get_adventure_list')
-        form= AdventureForm()
-        context= {
-            'form': form
-        }
-        return render(request, 'add_adventure.html', context)
+    adventures = Adventure.objects.all()
+    context= {
+        'adventures': adventures
+    }
+    return render(request, 'index.html', context)
 
 
-    def edit_adventure(request, adventure_id):
-        adventure= get_object_or_404(Adventure, id=adventure_id)
-        if request.method=='POST':
-            form= AdventureForm(request.POST, instance=adventure)
-            if form.is_valid():
-                form.save()
-                return redirect('get_adventure_list')
-        form=AdventureForm(instance=adventure)
-        context= {
-            'form': form
-        }
-        return render(request,'edit_adventure.html', context)
+def add_adventure(request):
+    if request.method == 'POST':
+        form= AdventureForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('get_adventure_list')
+    form= AdventureForm()
+    context= {
+        'form': form
+    }
+    return render(request, 'add_adventure.html', context)
 
 
-    def delete_adventure(request, adventure_id):
-        adventure= get_object_or_404(Adventure, id=adventure_id)
-        adventure.delete()
-        return redirect('get_adventure_list')
+def edit_adventure(request, adventure_id):
+    adventure= get_object_or_404(Adventure, id=adventure_id)
+    if request.method=='POST':
+        form= AdventureForm(request.POST, instance=adventure)
+        if form.is_valid():
+            form.save()
+            return redirect('get_adventure_list')
+    form=AdventureForm(instance=adventure)
+    context= {
+        'form': form
+    }
+    return render(request,'edit_adventure.html', context)
+
+
+def delete_adventure(request, adventure_id):
+    adventure= get_object_or_404(Adventure, id=adventure_id)
+    adventure.delete()
+    return redirect('get_adventure_list')
 
 class PostList(generic.ListView):
     model = Post
     queryset = Post.objects.order_by("created_on")
-    template_name = "index.html"
+    template_name = ""
     paginate_by = 6
 
 
