@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+{% for adventure in adventure_list %}
+<h3>{{ adventure.name }}</h3>
+{% endfor %}
 {% for post in post_list %}
 <h3>{{ post.title }}</h3>
 <p>{{ post.content }}</p>
