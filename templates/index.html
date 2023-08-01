@@ -9,6 +9,12 @@
 <p>{{ post.created_on }}</p>
 <p>{{ post.author }}</p>
 {{ post.likes }}
+<button id="edit">Edit</button>
+<button id="delete">Delete</button>
 {% endfor %}
+
+<!-- {% for comment in comments_list %}
+<h5>{{ comment.post }}</h5>
+{% endfor %} -->
 
 {% endblock %}

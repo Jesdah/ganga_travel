@@ -3,6 +3,14 @@ from django.contrib.auth.models import User
 
 
 
+class Adventure(models.Model):
+
+    name= models.CharField(max_length=50, blank=False)
+    date= models.DateField(blank=False)
+
+    def __str__(self):
+        return self.name
+
 
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
