@@ -1,11 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Posts:</h1>
-{% for post in posts %}
-<h1>{{ post.title }}</h1>
-<p>{{ post.content }}</p>
-<p>{{ post.created_on }}</p>
-<p>{{ post.author }}</p>
-{% endfor %}
+<table>
+    {% for post in posts %}
+        <tr>
+            <td>
+                {{ post.title }}
+                {{ post.created_on }}
+            </td>
+            <td>
+                {{ post.content }}
+            </td>
+            <td>
+                {{ post.author }}
+            </td>
+            <td>
+                <a href="/edit_post/{{ post.id }}">
+                <button>Edit</button></td>
+                </a>
+            <td>
+                <a href="/delete_post/{{ post.id }}">
+                    <button>Delete</button></td>
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td>You have no Destinations planed.</td></tr>
 
+    {% endfor %}
+</table>
+<a href="/add_post">Add an Destination</a>
 {% endblock %}

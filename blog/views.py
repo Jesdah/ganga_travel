@@ -67,6 +67,39 @@ def get_post_list(request):
     }
     return render(request, 'post.html', context)
 
+
+def add_post(request):
+    if request.method == 'POST':
+        post_form= PostForm(request.POST)
+        if post_form.is_valid():
+            post_form.save()
+            return redirect('get_post_list')
+    post_form= PostForm()
+    context= {
+        'post_form': post_form
+    }
+    return render(request, 'add_post.html', context)
+
+
+def edit_post(request, post_id):
+    post= get_object_or_404(Post, id=post_id)
+    if request.method=='POST':
+        post_form= PostForm(request.POST, instance=post)
+        if post_form.is_valid():
+            post_form.save()
+            return redirect('get_post_list')
+    post_form=PostForm(instance=post)
+    context= {
+        'post_form': post_form
+    }
+    return render(request,'edit_post.html', context)
+
+
+def delete_post(post_id):
+    post= get_object_or_404(Post, id=post_id)
+    post.delete()
+    return redirect('get_post_list')
+
 # class PostDetail(View):
 
 #     def get(self, request, slug, *args, **kwargs):

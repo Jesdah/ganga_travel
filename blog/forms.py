@@ -10,7 +10,7 @@ class AdventureForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model= Post
-        fields = ('title',)
+        fields = ('title', 'content', 'author',)
 
 class CommentForm(forms.ModelForm):
     class Meta:
