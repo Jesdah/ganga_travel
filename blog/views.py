@@ -72,7 +72,9 @@ def add_post(request):
     if request.method == 'POST':
         post_form= PostForm(request.POST)
         if post_form.is_valid():
-            post_form.save()
+            post= post_form.save(commit=False)
+            post.author= request.user
+            post.save()
             return redirect('get_post_list')
     post_form= PostForm()
     context= {
