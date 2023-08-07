@@ -5,6 +5,7 @@ from .models import Post, Adventure
 from .forms import CommentForm, AdventureForm, PostForm
 
 
+
 # class AdventureList(Adventure):
 #     model = Adventure
 #     queryset = Adventure.objects.order_by("date")
@@ -31,7 +32,7 @@ def add_adventure(request):
     context= {
         'form': form
     }
-    return render(request, 'add_adventure.html', context)
+    return render(request,'add_adventure.html', context)
 
 
 def edit_adventure(request, adventure_id):
@@ -59,7 +60,7 @@ def delete_adventure(request, adventure_id):
 #     template_name = "edit_adventure.html"
 #     paginate_by = 6
 
-def get_post_list(request):
+def get_post_list(request, adventure_id):
 
     posts = Post.objects.all()
     context= {
@@ -72,9 +73,7 @@ def add_post(request):
     if request.method == 'POST':
         post_form= PostForm(request.POST)
         if post_form.is_valid():
-            post= post_form.save(commit=False)
-            post.author= request.user
-            post.save()
+            post_form.save()
             return redirect('get_post_list')
     post_form= PostForm()
     context= {
@@ -97,63 +96,59 @@ def edit_post(request, post_id):
     return render(request,'edit_post.html', context)
 
 
-def delete_post(post_id):
+def delete_post(request, post_id):
     post= get_object_or_404(Post, id=post_id)
     post.delete()
     return redirect('get_post_list')
 
-# class PostDetail(View):
 
-#     def get(self, request, slug, *args, **kwargs):
 
-#         post = get_object_or_404(queryset, slug=slug)
-#         comments = post.comments.order_by("-created_on")
-#         liked = False
-#         if post.likes.filter(id=self.request.user.id).exists():
-#             liked = True
+# def get(request, adventure_id):
 
-#         return render(
-#             request,
-#             "post_detail.html",
-#             {
-#                 "post": post,
-#                 "comments": comments,
-#                 "commented": False,
-#                 "liked": liked,
-#                 "comment_form": CommentForm()
-#             },
-#         )
+#     adventure = get_object_or_404(Adventure, id=adventure_id)
+#     post = adventure.post.order_by("-created_on")
+#     liked = False
+#     if post.likes.filter(id=request.user.id).exists():
+#         liked = True
+
+#     return render(
+#         request,
+#         "post.html",
+#         {
+#             "adventure": adventure,
+#             "post": post,
+#             "liked": liked,
+#         },
+#     )
+
+# def post(request, adventure_id):
+
     
-#     def post(self, request, slug, *args, **kwargs):
+#     adventure = get_object_or_404(Adventure, id=adventure_id)
+#     post = adventure.post.order_by("-created_on")
+#     liked = False
+#     if post.likes.filter(id=request.user.id).exists():
+#         liked = True
 
-        
-#         post = get_object_or_404(queryset, slug=slug)
-#         comments = post.comments.order_by("-created_on")
-#         liked = False
-#         if post.likes.filter(id=self.request.user.id).exists():
-#             liked = True
+#     post_form = PostForm(data=request.POST)
+#     if post_form.is_valid():
+#         post_form.instance.email = request.user.email
+#         post_form.instance.name = request.user.username
+#         post = post_form.save(commit=False)
+#         post.adventure = post
+#         post.save()
+#     else:
+#         post_form = PostForm()
 
-#         comment_form = CommentForm(data=request.POST)
-#         if comment_form.is_valid():
-#             comment_form.instance.email = request.user.email
-#             comment_form.instance.name = request.user.username
-#             comment = comment_form.save(commit=False)
-#             comment.post = post
-#             comment.save()
-#         else:
-#             comment_form = CommentForm()
-
-#         return render(
-#             request,
-#             "post_detail.html",
-#             {
-#                 "post": post,
-#                 "comments": comments,
-#                 "commented": True,
-#                 "comment_form": comment_form,
-#                 "liked": liked
-#             },
-#         )
+#     return render(
+#         request,
+#         "post.html",
+#         {
+#             "adventure": adventure,
+#             "post": post,
+#             "liked": liked
+#         },
+#     )
 
 
 class PostLike(View):

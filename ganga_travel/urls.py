@@ -25,10 +25,10 @@ urlpatterns = [
     path('add', views.add_adventure, name='add'),
     path('edit/<adventure_id>', views.edit_adventure, name = 'edit'),
     path('delete/<adventure_id>', views.delete_adventure, name='delete'),
-    path('summernote/', include('django_summernote.urls')),
-    path("accounts/", include("allauth.urls")),
-    path('post/', views.get_post_list, name='get_post_list'),
+    path('post/<adventure_id>', views.get_post_list, name='get_post_list'),
     path('add_post/', views.add_post, name='add_post'),
     path('edit_post/<post_id>', views.edit_post, name = 'edit_post'),
     path('delete_post/<post_id>', views.delete_post, name='delete_post'),
+    path('summernote/', include('django_summernote.urls')),
+    path("accounts/", include("allauth.urls")),
 ]
