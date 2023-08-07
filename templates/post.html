@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% load crispy_forms_tags %}
 <h1>Posts:</h1>
 <table>
     {% for post in posts %}
@@ -29,5 +30,10 @@
     
     {% endfor %}
 </table>
+<form method="POST">
+    {{ post_form|crispy }}
+    {% csrf_token %}
+    <button type="submit">Add</button>
+</form>
 <a href="/add_post">Add an Destination</a>
 {% endblock %}

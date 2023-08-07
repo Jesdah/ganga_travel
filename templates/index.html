@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load crispy_forms_tags %}
 <h1>Your Adventures</h1>
 <table>
-    {% for adventure in adventures %}
+    {% for adventure in adventure_list %}
         <tr>
             <td>
-                <a href="post/{{ adventure.id }}">{{ adventure.name }}</a>
+                <a href="{% url 'get_post_list' adventure.id %}">{{ adventure.name }}</a>
             {{ adventure.date }}
             </td>
             <td>
@@ -24,5 +25,12 @@
 
     {% endfor %}
 </table>
-<a href="/add">Add an Adventure</a>
+<h3>Add an Adventure.</h3>
+<p>Posting as: {{ user.username }}</p>
+<form method="POST">
+    {{ adventure_form|crispy }}
+    {% csrf_token %}
+    <button type="submit">Add</button>
+</form>
+<!-- <a href="/add">Add an Adventure</a> -->
 {% endblock %}

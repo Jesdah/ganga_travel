@@ -26,7 +26,7 @@ class Post(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='blogpost_like', blank=True)
-    
+
 
     class Meta:
         ordering = ["-created_on"]
