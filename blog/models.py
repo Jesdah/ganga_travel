@@ -7,7 +7,7 @@ from cloudinary.models import CloudinaryField
 class Adventure(models.Model):
     name = models.CharField(max_length=50, unique=True)
     date= models.DateField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE, default=1, related_name="blog_adventure")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_adventure")
     featured_image = CloudinaryField('image', default='placeholder')
 
     class Meta:

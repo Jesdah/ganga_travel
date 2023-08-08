@@ -26,11 +26,6 @@
     {% endfor %}
 </table>
 <h3>Add an Adventure.</h3>
-<p>Posting as: {{ user.username }}</p>
-<form method="POST">
-    {{ adventure_form|crispy }}
-    {% csrf_token %}
-    <button type="submit">Add</button>
-</form>
-<!-- <a href="/add">Add an Adventure</a> -->
+<p>Posting as: {{ user.username }} {{user.id}}</p>
+<a href="/add/{{ user.id }}">Add an Adventure</a>
 {% endblock %}

@@ -5,12 +5,12 @@ from django import forms
 class AdventureForm(forms.ModelForm):
     class Meta:
         model = Adventure
-        fields = ('name', 'date',)
+        fields = ('name', 'date', 'featured_image')
 
 class PostForm(forms.ModelForm):
     class Meta:
         model= Post
-        fields = ('title', 'content',)
+        fields = ('title', 'content', 'featured_image')
 
 class CommentForm(forms.ModelForm):
     class Meta:

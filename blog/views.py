@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse,  redirect
 from django.views import generic, View
 from django.http import HttpResponseRedirect
-from .models import Post, Adventure
+from .models import Post, Adventure, User
 from .forms import CommentForm, AdventureForm, PostForm
 
 
@@ -28,6 +28,8 @@ class AdventureDetail(View):
             }
         )
     
+
+
     def post(self, request, adventure_id, *args, **kwargs):
         queryset=Adventure.objects.filter()
         adventure= get_object_or_404(queryset, id = adventure_id)
@@ -38,7 +40,7 @@ class AdventureDetail(View):
             post=post_form.save(commit=False)
             post.adventure= adventure
             post.save()
-
+            return redirect('home')
         return render(
             request,
             'post.html',{
@@ -46,153 +48,67 @@ class AdventureDetail(View):
             }
         )
 
-# def get_adventure_list(request):
-
-#     adventures = Adventure.objects.all()
-#     context= {
-#         'adventures': adventures
-#     }
-#     return render(request, 'index.html', context)
 
 
-# def add_adventure(request):
-#     if request.method == 'POST':
-#         form= AdventureForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('get_adventure_list')
-#     form= AdventureForm()
-#     context= {
-#         'form': form
-#     }
-#     return render(request,'add_adventure.html', context)
+def add_adventure(request, author_id):
+    queryset=User.objects.filter()
+    current_user = get_object_or_404(queryset,id=author_id)
+    if request.method == 'POST':
+        adventure_form= AdventureForm(request.POST)
+        adventure_user = Adventure.author
+        if adventure_form.is_valid():
+            
+            adventure_user=adventure_form.save(commit=False)
+            adventure_user.author= current_user
+            adventure_user.save()
+            return redirect('home')
+    return render(
+            request,
+            'add_adventure.html',{
+                'adventure_form': AdventureForm()
+            }
+        )
 
 
-# def edit_adventure(request, adventure_id):
-#     adventure= get_object_or_404(Adventure, id=adventure_id)
-#     if request.method=='POST':
-#         form= AdventureForm(request.POST, instance=adventure)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('get_adventure_list')
-#     form=AdventureForm(instance=adventure)
-#     context= {
-#         'form': form
-#     }
-#     return render(request,'edit_adventure.html', context)
+def edit_adventure(request, adventure_id):
+    adventure= get_object_or_404(Adventure, id=adventure_id)
+    if request.method=='POST':
+        form= AdventureForm(request.POST, instance=adventure)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    form=AdventureForm(instance=adventure)
+    context= {
+        'form': form
+    }
+    return render(request,'edit_adventure.html', context)
 
 
-# def delete_adventure(request, adventure_id):
-#     adventure= get_object_or_404(Adventure, id=adventure_id)
-#     adventure.delete()
-#     return redirect('get_adventure_list')
-
-# # class PostList(generic.ListView):
-# #     model = Post
-# #     queryset = Post.objects.order_by("created_on")
-# #     template_name = "edit_adventure.html"
-# #     paginate_by = 6
-
-# def get_post_list(request, adventure_id):
-
-#     posts = Post.objects.all()
-#     context= {
-#         'posts': posts
-#     }
-#     return render(request, 'post.html', context)
+def delete_adventure(request, adventure_id):
+    adventure= get_object_or_404(Adventure, id=adventure_id)
+    adventure.delete()
+    return redirect('home')
 
 
-# def add_post(request, adventure_id):
-#     if request.method == 'POST':
-#         post_form= PostForm(request.POST)
-#         if post_form.is_valid():
-#             post_form.save()
-#             return redirect('get_post_list')
-#     post_form= PostForm()
-#     context= {
-#         'post_form': post_form
-#     }
-#     return render(request, 'add_post.html', context)
+def edit_post(request, post_id):
+    post= get_object_or_404(Post, id=post_id)
+    if request.method=='POST':
+        post_form= PostForm(request.POST, instance=post)
+        if post_form.is_valid():
+            post_form.save()
+            return redirect('home')
+    post_form=PostForm(instance=post)
+    context= {
+        'post_form': post_form
+    }
+    return render(request,'edit_post.html', context)
 
 
-# def edit_post(request, post_id):
-#     post= get_object_or_404(Post, id=post_id)
-#     if request.method=='POST':
-#         post_form= PostForm(request.POST, instance=post)
-#         if post_form.is_valid():
-#             post_form.save()
-#             return redirect('get_post_list')
-#     post_form=PostForm(instance=post)
-#     context= {
-#         'post_form': post_form
-#     }
-#     return render(request,'edit_post.html', context)
-
-
-# def delete_post(request, post_id):
-#     post= get_object_or_404(Post, id=post_id)
-#     post.delete()
-#     return redirect('get_post_list')
+def delete_post(request, post_id):
+    post= get_object_or_404(Post, id=post_id)
+    post.delete()
+    return redirect('home')
 
 
 
-# # def get(request, adventure_id):
 
-# #     adventure = get_object_or_404(Adventure, id=adventure_id)
-# #     post = adventure.post.order_by("-created_on")
-# #     liked = False
-# #     if post.likes.filter(id=request.user.id).exists():
-# #         liked = True
-
-# #     return render(
-# #         request,
-# #         "post.html",
-# #         {
-# #             "adventure": adventure,
-# #             "post": post,
-# #             "liked": liked,
-# #         },
-# #     )
-
-# # def post(request, adventure_id):
-
-    
-# #     adventure = get_object_or_404(Adventure, id=adventure_id)
-# #     post = adventure.post.order_by("-created_on")
-# #     liked = False
-# #     if post.likes.filter(id=request.user.id).exists():
-# #         liked = True
-
-# #     post_form = PostForm(data=request.POST)
-# #     if post_form.is_valid():
-# #         post_form.instance.email = request.user.email
-# #         post_form.instance.name = request.user.username
-# #         post = post_form.save(commit=False)
-# #         post.adventure = post
-# #         post.save()
-# #     else:
-# #         post_form = PostForm()
-
-# #     return render(
-# #         request,
-# #         "post.html",
-# #         {
-# #             "adventure": adventure,
-# #             "post": post,
-# #             "liked": liked
-# #         },
-# #     )
-
-
-# class PostLike(View):
-    
-#     def post(self, request, slug, *args, **kwargs):
-#         post = get_object_or_404(Post, slug=slug)
-#         if post.likes.filter(id=request.user.id).exists():
-#             post.likes.remove(request.user)
-#         else:
-#             post.likes.add(request.user)
-
-#         return HttpResponseRedirect(reverse('post_detail', args=[slug]))
-
-# Create your views here.
