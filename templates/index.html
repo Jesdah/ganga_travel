@@ -7,7 +7,7 @@
     {% for adventure in adventure_list %}
         <tr>
             <td>
-                <a href="{% url 'get_post_list' adventure.id %}">{{ adventure.name }}</a>
+                <a href="{% url 'adventure_detail' adventure.id %}">{{ adventure.name }}</a>
             {{ adventure.date }}
             </td>
             <td>

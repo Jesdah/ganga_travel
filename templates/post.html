@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 {% load crispy_forms_tags %}
-<h1>Posts:</h1>
+<h1>{{ adventure.name }}</h1>
+<h2>Posts:</h2>
 <table>
     {% for post in posts %}
         <tr>
             <td>
                 {{ post.title }}
                 {{ post.created_on }}
+                
             </td>
             <td>
                 {{ post.content }}
@@ -24,10 +26,14 @@
                     <button>Delete</button></td>
                 </a>
             </td>
+            <td>
+                <a href="/add_comment/{{ post.id }}">
+                    <button>Add comment</button></td>
+                </a>
+            </td>
         </tr>
         {% empty %}
         <tr><td>You have no Destinations planed.</td></tr>
-    
     {% endfor %}
 </table>
 <form method="POST">
@@ -35,5 +41,14 @@
     {% csrf_token %}
     <button type="submit">Add</button>
 </form>
-<a href="/add_post">Add an Destination</a>
+<h4>Comments: </h4>
+{% for comment in comments %}
+{{ comment.name}}
+{{ comment.body }}
+{% endfor %}
+<form method="POST">
+    {{ comment_form_form|crispy }}
+    {% csrf_token %}
+    <button type="submit">Add</button>
+</form>
 {% endblock %}

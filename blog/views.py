@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse,  redirect
 from django.views import generic, View
 from django.http import HttpResponseRedirect
-from .models import Post, Adventure, User
+from .models import Post, Adventure, User, Comment
 from .forms import CommentForm, AdventureForm, PostForm
 
 
@@ -19,11 +19,14 @@ class AdventureDetail(View):
         queryset=Adventure.objects.filter()
         adventure= get_object_or_404(queryset, id=adventure_id)
         posts = adventure.posts.filter().order_by('created_on')
+        comments = Comment.objects.order_by('created_on')
         return render(
             request,
             'post.html',{
                 'adventure': adventure,
                 'posts':posts,
+                'comments':comments,
+                'post_form':PostForm(),
                 'comment_form':CommentForm()
             }
         )
@@ -40,14 +43,36 @@ class AdventureDetail(View):
             post=post_form.save(commit=False)
             post.adventure= adventure
             post.save()
-            return redirect('home')
+        else:
+            post_form = PostForm()
+        # return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id]))
         return render(
             request,
             'post.html',{
-                'post_form': PostForm()
+                'post_form': post_form
             }
         )
 
+
+def add_comment(request, adventure_id):
+    queryset=Adventure.objects.filter()
+    current_adventure_id = get_object_or_404(queryset,id=adventure_id)
+    if request.method == 'POST':
+        comment = Comment.adventure
+        comment_form= CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            
+            comment=comment_form.save(commit=False)
+            comment.adventure= current_adventure_id
+            comment.name = request.user.username
+            comment.save()
+            return redirect('home')
+    return render(
+            request,
+            'add_comment.html',{
+                'comment_form': CommentForm()
+            }
+        )
 
 
 def add_adventure(request, author_id):
