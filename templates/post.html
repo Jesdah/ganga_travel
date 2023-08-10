@@ -4,7 +4,7 @@
 <h1 class="display-1">Adventure: {{ adventure.name }}</h1>
 <h2 class="display-1">Posts:</h2>
 {% for post in posts %}
-<div class="card container-fluid" style="width: 23rem; margin-top: 10px;">
+<div class="card  container-sm" style=" margin-top: 10px;">
     <img src="{{ post.featured_image.url }}" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title display-6">{{ post.title }}</h5>
@@ -39,13 +39,14 @@
     </div>
 </div>
 {% endfor %}
-<a href="/add_comment/{{ post.id }}" class="card-link"><i class="fa-solid fa-comments"></i></a>
-
+<div class="d-flex justify-content-end justify-content-around">
+<a href="/add_comment/{{ post.id }}" class="card-link"><button type="button" class="btn btn-success ">Add Comment<i class="fa-solid fa-comments"></i></button></a>
+</div>
 <h3 class="display-1">Add Post</h3>
 <form method="POST" class="container" style="width: 50%;">
     {{ post_form|crispy }}
     {% csrf_token %}
-    <button type="submit">Add</button>
+    <button type="submit" class="btn btn-success">Add</button>
 </form>
 
 {% endblock %}

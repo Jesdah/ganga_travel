@@ -9,7 +9,7 @@
     <div class="card-img-overlay">
       <h1 class="card-title display-2 "><a href="{% url 'adventure_detail' adventure.id %}">{{ adventure.name }}</a></h1>
       <p class="card-text">{{ adventure.date }}<i class="fa-regular fa-calendar-days"></i></p>
-      <p class="card-text"><small>Created by: {{ user.username }}</small></p>
+      <p class="card-text"><small>Created by: {{ adventure.author }}</small></p>
       <a href="/edit/{{ adventure.id }}"><button class="btn btn-primary"><i class="fa-solid fa-pen"></i></button></td></a>
         <a href="/delete/{{ adventure.id }}"><button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></td>
     </div>

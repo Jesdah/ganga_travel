@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 {% load crispy_forms_tags %}
-<h3>Add an Adventure.</h3>
-<p>Posting as: {{ user.username }} {{user.id}}</p>
-<form method="POST">
+<h1 class="display-1">Add an Adventure.</h1>
+<p>Posting as: {{ user.username }}</p>
+<form method="POST" class="container" style="width: 50%;">
     {{ adventure_form|crispy }}
     {% csrf_token %}
-    <button type="submit">Add</button>
+    <button type="submit" class="btn btn-success">Add</button>
 </form>
 
 {%endblock%}
