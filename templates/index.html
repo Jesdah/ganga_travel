@@ -3,21 +3,30 @@
 {% block content %}
 {% load crispy_forms_tags %}
 <h1>Your Adventures</h1>
+{% for adventure in adventure_list %}
+<div class="card text-bg-dark container-md" style="height: 300px;">
+    <img src="{{ adventure.featured_image.url }}" class="card-img img-fluid fixed-card" alt="...">
+    <div class="card-img-overlay">
+      <h5 class="card-title"><a href="{% url 'adventure_detail' adventure.id %}">{{ adventure.name }}</a></h5>
+      <p class="card-text">{{ adventure.date }}</p>
+      <p class="card-text"><small>Created by: {{ user.username }}</small></p>
+      <a href="/edit/{{ adventure.id }}"><button>Edit</button></td></a>
+        <a href="/delete/{{ adventure.id }}"><button>Delete</button></td>
+    </div>
+  </div>
+
+              
 <table>
-    {% for adventure in adventure_list %}
+    
         <tr>
             <td>
-                <a href="{% url 'adventure_detail' adventure.id %}">{{ adventure.name }}</a>
-            {{ adventure.date }}
+                <!-- <a href="{% url 'adventure_detail' adventure.id %}">{{ adventure.name }}</a> -->
+            
             </td>
             <td>
-                <a href="/edit/{{ adventure.id }}">
-                <button>Edit</button></td>
-                </a>
+                
             <td>
-                <a href="/delete/{{ adventure.id }}">
-                    <button>Delete</button></td>
-                </a>
+                
             </td>
         </tr>
         {% empty %}

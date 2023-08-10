@@ -57,30 +57,30 @@ class AdventureDetail(View):
         )
 
 
-    def add_comment(self, request, adventure_id, *args, **kwargs):
-        queryset=Adventure.objects.filter()
-        adventure= get_object_or_404(queryset, id = adventure_id)
-        comments = adventure.comments.filter().order_by('created_on')
-        comment_form=CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            
-            comment= comment_form.save(commit=False)
-            comment.name = request.user.username
-            comment.adventure= adventure
-            comment.save()
-            return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id]))
-        else:
-            comment_form = CommentForm()
+def add_comment(request, adventure_id, *args, **kwargs):
+    queryset=Adventure.objects.filter()
+    adventure= get_object_or_404(queryset, id = adventure_id)
+    comments = adventure.comments.filter().order_by('created_on')
+    comment_form=CommentForm(data=request.POST)
+    if comment_form.is_valid():
         
-        return render(
-            request,
-            'post.html',{
-                'adventure': adventure,
-                'comments':comments,
-                'post_form':PostForm(),
-                'comment_form':CommentForm()
-            }
-        )
+        comment= comment_form.save(commit=False)
+        comment.name = request.user.username
+        comment.adventure= adventure
+        comment.save()
+        return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id]))
+    else:
+        comment_form = CommentForm()
+    
+    return render(
+        request,
+        'add_comment.html',{
+            'adventure': adventure,
+            'comments':comments,
+            'post_form':PostForm(),
+            'comment_form':CommentForm()
+        }
+    )
 
 
 
