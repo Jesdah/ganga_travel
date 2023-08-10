@@ -1,49 +1,51 @@
 {% extends "base.html" %}
 {% block content %}
 {% load crispy_forms_tags %}
-<h1>{{ adventure.name }}</h1>
-<h2>Posts:</h2>
-<table>
-    {% for post in posts %}
-        <tr>
-            <td>
-                {{ post.title }}
-                {{ post.created_on }}
-                
-            </td>
-            <td>
-                {{ post.content }}
-            </td>
-            <td>
-                {{ post.author }}
-            </td>
-            <td>
-                <a href="/edit_post/{{ post.id }}">
-                <button>Edit</button></td>
-                </a>
-            <td>
-                <a href="/delete_post/{{ post.id }}">
-                    <button>Delete</button></td>
-                </a>
-            </td>
-            <td>
-                <a href="/add_comment/{{ post.id }}">
-                    <button>Add comment</button></td>
-                </a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr><td>You have no Destinations planed.</td></tr>
-    {% endfor %}
-</table>
-<form method="POST">
+<h1 class="display-1">Adventure: {{ adventure.name }}</h1>
+<h2 class="display-1">Posts:</h2>
+{% for post in posts %}
+<div class="card container-fluid" style="width: 23rem; margin-top: 10px;">
+    <img src="{{ post.featured_image.url }}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title display-6">{{ post.title }}</h5>
+      <p class="card-text">{{ post.content }}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{ post.created_on }}</li>
+      <li class="list-group-item">{{ post.author }}</li>
+      <li class="list-group-item">{{ post.updated_on }}</li>
+    </ul>
+    <div class="card-body">
+      <a href="/edit_post/{{ post.id }}" class="card-link"><i class="fa-solid fa-pen"></i></a>
+      <a href="/delete_post/{{ post.id }}" class="card-link"><i class="fa-solid fa-trash"></i></a>
+      
+    </div>
+  </div>
+{% empty %}
+        <tr><td>You have no Destinations planed.</td></tr>  
+{% endfor %}
+<h4>Comments: </h4>
+{% for comment in comments %}
+<div class="card container-fluid container-sm">
+    <div class="card-body text-center">
+        <figure>
+            <blockquote class="blockquote">
+            <p>{{ comment.body }}</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+            {{ comment.name}}
+            </figcaption>
+        </figure>
+    </div>
+</div>
+{% endfor %}
+<a href="/add_comment/{{ post.id }}" class="card-link"><i class="fa-solid fa-comments"></i></a>
+
+<h3 class="display-1">Add Post</h3>
+<form method="POST" class="container" style="width: 50%;">
     {{ post_form|crispy }}
     {% csrf_token %}
     <button type="submit">Add</button>
 </form>
-<h4>Comments: </h4>
-{% for comment in comments %}
-{{ comment.name}}
-{{ comment.body }}
-{% endfor %}
+
 {% endblock %}

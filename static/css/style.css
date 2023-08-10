@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(6, 235, 235);
+}
+
 .fixed-card {
     height: 300px;
 }
