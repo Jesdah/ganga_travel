@@ -19,7 +19,7 @@ class AdventureDetail(View):
         queryset=Adventure.objects.filter()
         adventure= get_object_or_404(queryset, id=adventure_id)
         posts = adventure.posts.filter().order_by('created_on')
-        comments = Comment.objects.order_by('created_on')
+        comments = adventure.comments.filter().order_by('created_on')
         return render(
             request,
             'post.html',{
@@ -43,36 +43,45 @@ class AdventureDetail(View):
             post=post_form.save(commit=False)
             post.adventure= adventure
             post.save()
+            return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id]))
         else:
             post_form = PostForm()
         # return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id]))
         return render(
             request,
             'post.html',{
-                'post_form': post_form
+                'adventure': adventure,
+                'post_form':PostForm(),
+                'comment_form':CommentForm()
             }
         )
 
 
-def add_comment(request, adventure_id):
-    queryset=Adventure.objects.filter()
-    current_adventure_id = get_object_or_404(queryset,id=adventure_id)
-    if request.method == 'POST':
-        comment = Comment.adventure
-        comment_form= CommentForm(data=request.POST)
+    def add_comment(self, request, adventure_id, *args, **kwargs):
+        queryset=Adventure.objects.filter()
+        adventure= get_object_or_404(queryset, id = adventure_id)
+        comments = adventure.comments.filter().order_by('created_on')
+        comment_form=CommentForm(data=request.POST)
         if comment_form.is_valid():
             
-            comment=comment_form.save(commit=False)
-            comment.adventure= current_adventure_id
+            comment= comment_form.save(commit=False)
             comment.name = request.user.username
+            comment.adventure= adventure
             comment.save()
-            return redirect('home')
-    return render(
+            return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id]))
+        else:
+            comment_form = CommentForm()
+        
+        return render(
             request,
-            'add_comment.html',{
-                'comment_form': CommentForm()
+            'post.html',{
+                'adventure': adventure,
+                'comments':comments,
+                'post_form':PostForm(),
+                'comment_form':CommentForm()
             }
         )
+
 
 
 def add_adventure(request, author_id):

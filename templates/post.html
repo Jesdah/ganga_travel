@@ -47,7 +47,7 @@
 {{ comment.body }}
 {% endfor %}
 <form method="POST">
-    {{ comment_form_form|crispy }}
+    {{ comment_form|crispy }}
     {% csrf_token %}
     <button type="submit">Add</button>
 </form>
