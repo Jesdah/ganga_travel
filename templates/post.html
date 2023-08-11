@@ -39,14 +39,19 @@
     </div>
 </div>
 {% endfor %}
-<div class="d-flex justify-content-end justify-content-around">
-<a href="/add_comment/{{ post.id }}" class="card-link"><button type="button" class="btn btn-success ">Add Comment<i class="fa-solid fa-comments"></i></button></a>
-</div>
-<h3 class="display-1">Add Post</h3>
-<form method="POST" class="container" style="width: 50%;">
-    {{ post_form|crispy }}
-    {% csrf_token %}
-    <button type="submit" class="btn btn-success">Add</button>
-</form>
 
+<div class="d-flex justify-content-end justify-content-around">
+<a href="/add_comment/{{ adventure.id }}" class="card-link"><button type="button" class="btn btn-success ">Add Comment<i class="fa-solid fa-comments"></i></button></a>
+</div>
+
+
+<button type="submit" class="btn btn-success" id="addPostBtn">Add Post</button>
+<h3 class="display-1">Add Post</h3>
+<div id="addPostModal">
+  <form method="POST" class="container" style="width: 50%;">
+      {{ post_form|crispy }}
+      {% csrf_token %}
+      <button type="submit" class="btn btn-success close">Add</button>
+  </form>
+</div>
 {% endblock %}

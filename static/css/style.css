@@ -5,3 +5,7 @@ body {
 .fixed-card {
     height: 300px;
 }
+
+#addPostModal {
+    display: none;
+}
