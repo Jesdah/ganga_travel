@@ -5,7 +5,11 @@
 <h1 class="display-1">Your Adventures</h1>
 {% for adventure in adventure_list %}
 <div class="card text-bg-dark container-md" style="height: 300px;">
-    <img src="{{ adventure.featured_image.url }}" class="card-img img-fluid fixed-card" alt="...">
+  {% if "placeholder" in adventure.featured_image.url %}
+  <img src="https://res.cloudinary.com/djs04srkx/image/upload/v1689779263/samples/landscapes/architecture-signs.jpg" width="100%"class="card-img img-fluid fixed-card" alt="...">
+  {% else %}
+  <img src=" {{ adventure.featured_image.url }}" width="100%"class="card-img img-fluid fixed-card" alt="...">
+  {% endif %}
     <div class="card-img-overlay">
       <h1 class="card-title display-2 "><a href="{% url 'adventure_detail' adventure.id %}">{{ adventure.name }}</a></h1>
       <p class="card-text">{{ adventure.date }}<i class="fa-regular fa-calendar-days"></i></p>

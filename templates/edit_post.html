@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+{% load crispy_forms_tags %}
 <h1>Edit Post</h1>
 <form method="POST">
     {% csrf_token %}
-    {{ post_form.as_p }}
+    {{ post_form|crispy }}
     <div>
         <p>
             <button type="submit"></a>Update</button>

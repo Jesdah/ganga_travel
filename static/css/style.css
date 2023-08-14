@@ -9,3 +9,7 @@ body {
 #addPostModal {
     display: none;
 }
+
+#addCommentModal {
+    display: none;
+}

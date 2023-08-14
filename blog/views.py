@@ -10,7 +10,6 @@ class AdventureList(generic.ListView):
     model = Adventure
     queryset = Adventure.objects.filter().order_by("date")
     template_name = "index.html"
-    paginate_by = 6
 
 
 class AdventureDetail(View):
@@ -27,18 +26,18 @@ class AdventureDetail(View):
                 'posts':posts,
                 'comments':comments,
                 'post_form':PostForm(),
-                'comment_form':CommentForm()
+                'comment_form':CommentForm(),
             }
         )
-    
 
 
     def post(self, request, adventure_id, *args, **kwargs):
         queryset=Adventure.objects.filter()
         adventure= get_object_or_404(queryset, id = adventure_id)
-        post = adventure.posts.filter().order_by('created_on')
+        posts = adventure.posts.filter().order_by('created_on')
+        comments = adventure.comments.filter().order_by('created_on')
         post= Post.adventure
-        post_form=PostForm(data=request.POST)
+        post_form=PostForm(request.POST, request.FILES)
         if post_form.is_valid():
             post=post_form.save(commit=False)
             post.adventure= adventure
@@ -46,11 +45,12 @@ class AdventureDetail(View):
             return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id]))
         else:
             post_form = PostForm()
-        # return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id]))
         return render(
             request,
             'post.html',{
                 'adventure': adventure,
+                'posts':posts,
+                'comments':comments,
                 'post_form':PostForm(),
                 'comment_form':CommentForm()
             }
@@ -60,10 +60,11 @@ class AdventureDetail(View):
 def add_comment(request, adventure_id, *args, **kwargs):
     queryset=Adventure.objects.filter()
     adventure= get_object_or_404(queryset, id = adventure_id)
+    posts = adventure.posts.filter().order_by('created_on')
     comments = adventure.comments.filter().order_by('created_on')
+    comment=Comment.adventure
     comment_form=CommentForm(data=request.POST)
     if comment_form.is_valid():
-        
         comment= comment_form.save(commit=False)
         comment.name = request.user.username
         comment.adventure= adventure
@@ -71,11 +72,11 @@ def add_comment(request, adventure_id, *args, **kwargs):
         return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id]))
     else:
         comment_form = CommentForm()
-    
     return render(
         request,
         'add_comment.html',{
             'adventure': adventure,
+            'posts':posts,
             'comments':comments,
             'post_form':PostForm(),
             'comment_form':CommentForm()
@@ -83,19 +84,23 @@ def add_comment(request, adventure_id, *args, **kwargs):
     )
 
 
+def delete_post(request, post_id, *args, **kwargs):
+    post= get_object_or_404(Post, id=post_id)
+    post.delete()
+    return redirect('home')
+
 
 def add_adventure(request, author_id):
     queryset=User.objects.filter()
     current_user = get_object_or_404(queryset,id=author_id)
     if request.method == 'POST':
-        adventure_form= AdventureForm(request.POST)
+        adventure_form= AdventureForm(request.POST, request.FILES)
         adventure_user = Adventure.author
         if adventure_form.is_valid():
-            
             adventure_user=adventure_form.save(commit=False)
             adventure_user.author= current_user
-            adventure_user.save()
-            return redirect('home')
+            adventure_form.save()
+        return redirect('home')
     return render(
             request,
             'add_adventure.html',{
@@ -136,13 +141,3 @@ def edit_post(request, post_id):
         'post_form': post_form
     }
     return render(request,'edit_post.html', context)
-
-
-def delete_post(request, post_id):
-    post= get_object_or_404(Post, id=post_id)
-    post.delete()
-    return redirect('home')
-
-
-
-
