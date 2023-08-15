@@ -13,7 +13,6 @@ class AdventureList(generic.ListView):
 
 
 class AdventureDetail(View):
-
     def get(self, request, adventure_id, *args, **kwargs):
         queryset=Adventure.objects.filter()
         adventure= get_object_or_404(queryset, id=adventure_id)
@@ -56,6 +55,26 @@ class AdventureDetail(View):
             }
         )
 
+def delete_post(request, adventure_id, post_id, *args, **kwargs):
+    post= get_object_or_404(Post, id=post_id)
+    post.delete()
+    return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id]))
+
+def edit_post(request, adventure_id, post_id):
+
+    post= get_object_or_404(Post, id=post_id)
+    if request.method=='POST':
+        post_form= PostForm(request.POST, instance=post)
+        if post_form.is_valid():
+            post_form.save()
+        return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id]))
+    post_form=PostForm(instance=post)
+    return render(
+        request,
+        'edit_post.html',{
+            'edit_form':post_form,
+        }
+    )
 
 def add_comment(request, adventure_id, *args, **kwargs):
     queryset=Adventure.objects.filter()
@@ -84,10 +103,7 @@ def add_comment(request, adventure_id, *args, **kwargs):
     )
 
 
-def delete_post(request, post_id, *args, **kwargs):
-    post= get_object_or_404(Post, id=post_id)
-    post.delete()
-    return redirect('home')
+
 
 
 def add_adventure(request, author_id):
@@ -129,15 +145,4 @@ def delete_adventure(request, adventure_id):
     return redirect('home')
 
 
-def edit_post(request, post_id):
-    post= get_object_or_404(Post, id=post_id)
-    if request.method=='POST':
-        post_form= PostForm(request.POST, instance=post)
-        if post_form.is_valid():
-            post_form.save()
-            return redirect('home')
-    post_form=PostForm(instance=post)
-    context= {
-        'post_form': post_form
-    }
-    return render(request,'edit_post.html', context)
+

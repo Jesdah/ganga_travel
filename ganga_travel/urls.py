@@ -28,8 +28,8 @@ urlpatterns = [
     path('delete/<adventure_id>', views.delete_adventure, name='delete'),
     path('<int:adventure_id>/', views.AdventureDetail.as_view(), name='adventure_detail'),
     path('add_comment/<adventure_id>', views.add_comment, name='add_comment'),
-    path('edit_post/<post_id>', views.edit_post, name = 'edit_post'),
-    path('delete_post/<post_id>', views.delete_post, name='delete_post'),
+    path('edit_post/<post_id>/<adventure_id>', views.edit_post, name = 'edit_post'),
+    path('delete_post/<post_id>/<adventure_id>', views.delete_post, name='delete_post'),
     path('summernote/', include('django_summernote.urls')),
     path("accounts/", include("allauth.urls")),
 ]

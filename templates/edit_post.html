@@ -3,8 +3,8 @@
 {% load crispy_forms_tags %}
 <h1>Edit Post</h1>
 <form method="POST">
+    {{ edit_form|crispy }}
     {% csrf_token %}
-    {{ post_form|crispy }}
     <div>
         <p>
             <button type="submit"></a>Update</button>
