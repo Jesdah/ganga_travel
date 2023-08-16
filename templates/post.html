@@ -20,8 +20,12 @@
       <li class="list-group-item">{{ post.author }}</li>
       <li class="list-group-item">{{ post.updated_on }}</li>
     </ul>
+    {% if perms.blog.edit_post %}
       <a href="{% url 'edit_post' post.id adventure.id user.id %}" class="card-link"><i class="fa-solid fa-pen"></i></a>
+      {% endif %}
+    {% if perms.blog.delete_post %}
       <a href="{% url 'delete_post' post.id adventure.id user.id %}" class="card-link"><i class="fa-solid fa-trash"></i></a>
+    {% endif %}
     </div>
   </div>
 {% empty %}
@@ -44,20 +48,14 @@
 {% endfor %}
 
 <div class="d-flex justify-content-end justify-content-around" >
+  {% if perms.blog.add_comment%}
 <a href="/add_comment/{{ adventure.id }}/{{ user.id }}" class="card-link"><button type="button" class="btn btn-success">Add Comment<i class="fa-solid fa-comments"></i></button></a>
+  {% endif %}
 </div>
 
-<div id="addCommentModal">
-<h3>Add a comment.</h3>
-<p>Posting as: {{ user.username }}</p>
-<form method="POST">
-    {{ comment_form|crispy }}
-    {% csrf_token %}
-    <button type="submit" class="btn btn-success close">Add</button>
-</form>
-</div>
+{% if perms.blog.add_post %}
 <button type="submit" class="btn btn-success" id="addPostBtn">Add Post</button>
-
+{% endif %}
 <div id="addPostModal">
   <h3 class="display-1">Add Post</h3>
   <form method="POST" class="container" style="width: 50%;" enctype="multipart/form-data">
