@@ -2,7 +2,7 @@
 {% block content %}
 {% load crispy_forms_tags %}
 {% load cloudinary %}
-<h1 class="display-1">Adventure: {{ adventure.name }}</h1>
+<h1 class="display-1">Adventure: {{ adventure.name }}</h1>{{ adventure.author }} {{ user.username }}
 <h2 class="display-1">Posts:</h2>
 {% for post in posts %}
 <div class="card  container-sm" style=" margin-top: 10px;">
@@ -20,9 +20,8 @@
       <li class="list-group-item">{{ post.author }}</li>
       <li class="list-group-item">{{ post.updated_on }}</li>
     </ul>
-      <a href="{% url 'edit_post' post.id adventure.id %}" class="card-link"><i class="fa-solid fa-pen"></i></a>
-      <a href="{% url 'delete_post' post.id adventure.id %}" class="card-link"><i class="fa-solid fa-trash"></i></a>
-      
+      <a href="{% url 'edit_post' post.id adventure.id user.id %}" class="card-link"><i class="fa-solid fa-pen"></i></a>
+      <a href="{% url 'delete_post' post.id adventure.id user.id %}" class="card-link"><i class="fa-solid fa-trash"></i></a>
     </div>
   </div>
 {% empty %}
@@ -45,7 +44,7 @@
 {% endfor %}
 
 <div class="d-flex justify-content-end justify-content-around" >
-<a href="/add_comment/{{ adventure.id }}" class="card-link"><button type="button" class="btn btn-success">Add Comment<i class="fa-solid fa-comments"></i></button></a>
+<a href="/add_comment/{{ adventure.id }}/{{ user.id }}" class="card-link"><button type="button" class="btn btn-success">Add Comment<i class="fa-solid fa-comments"></i></button></a>
 </div>
 
 <div id="addCommentModal">
