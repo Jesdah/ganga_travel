@@ -2,17 +2,17 @@
 {% block content %}
 {% load crispy_forms_tags %}
 {% load cloudinary %}
-<h1 class="display-1 title-style">Adventure: {{ adventure.name }}</h1>
-<h2 class="display-1">Destinations:</h2>
+<h1 class="display-1 title-style">{{ adventure.name }}<i class="fa-solid fa-sun"></i></h1>
+<h2 class="display-5">Destinations:</h2>
 {% for post in posts %}
-<div class="card  container-sm destination-card">
+<div class="card  container-sm destination-card" id="{{ post.id }}" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
   {% if "placeholder" in post.featured_image.url %}
-  <img src="https://res.cloudinary.com/djs04srkx/image/upload/v1689779280/samples/balloons.jpg">
+  <img src="https://res.cloudinary.com/djs04srkx/image/upload/v1689779280/samples/balloons.jpg" class="post-card-image">
   {% else %}
-  <img src=" {{ post.featured_image.url }}">
+  <img src=" {{ post.featured_image.url }}" class="post-card-image">
   {% endif %}
     <div class="card-body">
-      <h5 class="card-title display-6">{{ post.title }}</h5>
+      <h5 class="card-title display-6 title-style">{{ post.title }}</h5>
       <p class="card-text">{{ post.content }}</p>
     </div>
     <ul class="list-group list-group-flush">
@@ -24,7 +24,7 @@
       <a href="{% url 'edit_post' post.id adventure.id user.id %}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>
       {% endif %}
     {% if perms.blog.delete_post %}
-      <a onclick="return confirm('Are you sure you want to delete {{ post.title }}?')" href="{% url 'delete_post' post.id adventure.id user.id %}" class="card-link"><i class="fa-solid fa-trash"></i></a>
+      <a onclick="return confirm('Are you sure you want to delete {{ post.title }}?')" href="{% url 'delete_post' post.id adventure.id user.id %}" class="card-link"><i id="trash" class="fa-solid fa-trash"></i></a>
     {% endif %}
     </div>
     </div>
@@ -34,7 +34,7 @@
 {% endfor %}
 <h4>Comments: </h4>
 {% for comment in comments %}
-<div class="card container-fluid container-sm">
+<div class="card container-fluid container-sm comment">
     <div class="card-body text-center">
         <figure>
             <blockquote class="blockquote">
@@ -50,12 +50,12 @@
 
 <div class="d-flex justify-content-end justify-content-around" >
   {% if perms.blog.add_comment%}
-<a href="/add_comment/{{ adventure.id }}/{{ user.id }}" class="card-link"><button type="button" class="btn btn-success">Add Comment<i class="fa-solid fa-comments"></i></button></a>
+<a href="/add_comment/{{ adventure.id }}/{{ user.id }}" class="card-link"><button type="button" class="btn btn-success">Comment <i class="fa-solid fa-comments"></i></button></a>
   {% endif %}
 </div>
 
 {% if perms.blog.add_post %}
-<button type="submit" class="btn btn-success" id="addPostBtn">Add Post</button>
+<button type="submit" class="btn btn-success" id="addPostBtn">New Destination</button>
 {% endif %}
 <div id="addPostModal">
   <h3 class="display-1">Add Post</h3>

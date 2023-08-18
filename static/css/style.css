@@ -21,16 +21,21 @@ body {
 }
 
 .card-tint {
-    background-color: rgb(6, 235, 235, 0.4);
+    background: hsla(0,0%,100%,.3);
     width: 33%;
     color: black;
     text-decoration: none;
 }
 
+
 .title-style {
     text-decoration: none;
-    text-transform: capitalize;
     color: black;
+    display: block
+}
+
+.title-style:first-letter{
+    text-transform: capitalize;
 }
 
 .card-title {
@@ -44,11 +49,23 @@ body {
 .destination-card{
     margin-top: 50px;
     margin-bottom: 50px;
+    filter: drop-shadow(2px 2px 10px rgba(0,0,0,.5));
 }
+
 
 .card-buttons {
     font-size: 30px;
     height: 70px;
+}
+
+#trash {
+    color: red;
+}
+
+.comment {
+    filter: drop-shadow(2px 2px 10px rgba(0,0,0,.5));
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 @media screen and (max-width: 500px) {
