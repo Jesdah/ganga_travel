@@ -4,30 +4,28 @@
 {% load crispy_forms_tags %}
 <h1 class="display-1">Your Adventures</h1>
 {% for adventure in adventure_list %}
-<div class="card text-bg-dark container-md" style="height: 300px; margin-top: 20px;">
+<div class="card adventure-card">
   {% if "placeholder" in adventure.featured_image.url %}
-  <img src="https://res.cloudinary.com/djs04srkx/image/upload/v1689779263/samples/landscapes/architecture-signs.jpg" width="100%"class="card-img img-fluid fixed-card" alt="...">
+  <img src="https://res.cloudinary.com/djs04srkx/image/upload/v1689779263/samples/landscapes/architecture-signs.jpg"class="card-img fixed-card adventure-image" alt="...">
   {% else %}
-  <img src=" {{ adventure.featured_image.url }}" width="100%"class="card-img img-fluid fixed-card" alt="...">
+  <img src=" {{ adventure.featured_image.url }}"class="card-img fixed-card adventure-image" alt="...">
   {% endif %}
-    <div class="card-img-overlay">
-      <h1 class="card-title display-2 "><a href="{% url 'adventure_detail' adventure.id user.id %}">{{ adventure.name }}</a></h1>
-      <p class="card-text">{{ adventure.date }}<i class="fa-regular fa-calendar-days"></i></p>
+    <div class="card-img-overlay card-tint">
+      <h1 class="card-title" ><a class= "title-style" href="{% url 'adventure_detail' adventure.id user.id %}">{{ adventure.name }}</a></h1>
+      <p class="card-text"><i class="fa-regular fa-calendar-days"></i> {{ adventure.date }}</p>
       <p class="card-text"><small>Created by: {{ adventure.author }}</small></p>
       {% if perms.blog.edit_adventure %}
       <a href="/edit/{{ adventure.id }}/{{ user.id }}"><button class="btn btn-primary"><i class="fa-solid fa-pen"></i></button></td></a>
       {% endif %}
       {% if perms.blog.delete_adventure %}
-      <a href="/delete/{{ adventure.id }}/{{ user.id }}"><button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></td></a>
+      <a onclick="return confirm('Are you sure you want to delete {{ adventure.name }}?')" href="/delete/{{ adventure.id }}/{{ user.id }}"><button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></td></a>
       {% endif %}
     </div>
   </div>
   {% empty %}
   <p class="text-center">You have no Adventures planed.</p>
 {% endfor %}
-<h3>Add an Adventure</h3>
-<p>Posting as: {{ user.username }}</p>
 {% if perms.blog.add_adventure %}
-<a href="/add/{{ user.id }}"><button type="button" class="btn btn-primary">Add an Adventure</button></a>
+<a href="/add/{{ user.id }}"><button type="button" class="btn btn-primary">New Adventure <i class="fa-solid fa-sun"></i></button></a>
 {% endif %}
 {% endblock %}

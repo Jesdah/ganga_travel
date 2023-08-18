@@ -10,6 +10,59 @@ body {
     display: none;
 }
 
-#addCommentModal {
-    display: none;
+.adventure-card {
+    height: 300px; 
+    margin: 20px;
+}
+
+.adventure-image {
+    object-fit: cover;
+    background-color: black;
+}
+
+.card-tint {
+    background-color: rgb(6, 235, 235, 0.4);
+    width: 33%;
+    color: black;
+    text-decoration: none;
+}
+
+.title-style {
+    text-decoration: none;
+    text-transform: capitalize;
+    color: black;
+}
+
+.card-title {
+    text-decoration: none;
+}
+
+.fa-sun{
+    color: yellow;
+}
+
+.destination-card{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.card-buttons {
+    font-size: 30px;
+    height: 70px;
+}
+
+@media screen and (max-width: 500px) {
+    .card-tint{
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .card-tint{
+        width: 100%;
+    }
+    .adventure-card {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }

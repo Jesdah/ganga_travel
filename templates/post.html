@@ -2,30 +2,31 @@
 {% block content %}
 {% load crispy_forms_tags %}
 {% load cloudinary %}
-<h1 class="display-1">Adventure: {{ adventure.name }}</h1>{{ adventure.author }} {{ user.username }}
-<h2 class="display-1">Posts:</h2>
+<h1 class="display-1 title-style">Adventure: {{ adventure.name }}</h1>
+<h2 class="display-1">Destinations:</h2>
 {% for post in posts %}
-<div class="card  container-sm" style=" margin-top: 10px;">
+<div class="card  container-sm destination-card">
   {% if "placeholder" in post.featured_image.url %}
-  <img src="https://res.cloudinary.com/djs04srkx/image/upload/v1689779280/samples/balloons.jpg" width="100%">
+  <img src="https://res.cloudinary.com/djs04srkx/image/upload/v1689779280/samples/balloons.jpg">
   {% else %}
-  <img src=" {{ post.featured_image.url }}" width="100%">
+  <img src=" {{ post.featured_image.url }}">
   {% endif %}
     <div class="card-body">
       <h5 class="card-title display-6">{{ post.title }}</h5>
       <p class="card-text">{{ post.content }}</p>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">{{ post.created_on }}</li>
-      <li class="list-group-item">{{ post.author }}</li>
-      <li class="list-group-item">{{ post.updated_on }}</li>
+      <li class="list-group-item">Destination Created: {{ post.created_on }}</li>
+      <li class="list-group-item">Destination Updated: {{ post.updated_on }}</li>
     </ul>
+    <div class="card-buttons d-flex justify-content-evenly align-items-center">
     {% if perms.blog.edit_post %}
-      <a href="{% url 'edit_post' post.id adventure.id user.id %}" class="card-link"><i class="fa-solid fa-pen"></i></a>
+      <a href="{% url 'edit_post' post.id adventure.id user.id %}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>
       {% endif %}
     {% if perms.blog.delete_post %}
-      <a href="{% url 'delete_post' post.id adventure.id user.id %}" class="card-link"><i class="fa-solid fa-trash"></i></a>
+      <a onclick="return confirm('Are you sure you want to delete {{ post.title }}?')" href="{% url 'delete_post' post.id adventure.id user.id %}" class="card-link"><i class="fa-solid fa-trash"></i></a>
     {% endif %}
+    </div>
     </div>
   </div>
 {% empty %}
