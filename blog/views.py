@@ -118,6 +118,15 @@ def add_comment(request, adventure_id, author_id, *args, **kwargs):
     else:
         return HttpResponse('You do not have permission to comment')
 
+def delete_comment(request, adventure_id, comment_id, author_id, *args, **kwargs):
+    comment= get_object_or_404(Comment, id=comment_id)
+    # user = get_object_or_404(User, pk=author_id)
+    if comment.name == request.user:
+        comment.delete()
+        return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id,author_id]))
+    else:
+        return HttpResponse('You do not have permission to delete this Comment')
+
 def add_adventure(request, author_id):
     queryset=User.objects.filter()
     current_user = get_object_or_404(queryset,id=author_id)

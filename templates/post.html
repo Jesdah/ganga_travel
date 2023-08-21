@@ -45,12 +45,13 @@
             </figcaption>
         </figure>
     </div>
+    <a href="{% url 'delete_comment' adventure.id user.id comment.id %}"><button>delete comment</button></a>
 </div>
 {% endfor %}
 
 <div class="d-flex justify-content-end justify-content-around" >
   {% if perms.blog.add_comment%}
-<a href="/add_comment/{{ adventure.id }}/{{ user.id }}" class="card-link"><button type="button" class="btn btn-success">Comment <i class="fa-solid fa-comments"></i></button></a>
+<a href="{% url 'add_comment' adventure.id user.id %}" class="card-link"><button type="button" class="btn btn-success">Comment <i class="fa-solid fa-comments"></i></button></a>
   {% endif %}
 </div>
 
