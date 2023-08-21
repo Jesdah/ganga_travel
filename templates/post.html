@@ -16,8 +16,12 @@
       <p class="card-text">{{ post.content }}</p>
     </div>
     <ul class="list-group list-group-flush">
+      {% if post.updated_on == post.created_on %}
+      <li class="list-group-item">Destination Created: {{ post.created_on }}</li>
+      {% else %}
       <li class="list-group-item">Destination Created: {{ post.created_on }}</li>
       <li class="list-group-item">Destination Updated: {{ post.updated_on }}</li>
+      {% endif %}
     </ul>
     <div class="card-buttons d-flex justify-content-evenly align-items-center">
     {% if perms.blog.edit_post %}
@@ -35,35 +39,39 @@
 <h4>Comments: </h4>
 {% for comment in comments %}
 <div class="card container-fluid container-sm comment">
-    <div class="card-body text-center">
-        <figure>
+    <div class="card-body text-center d-flex bd-highlight">
+        <figure class="p-2 w-100 bd-highlight align-self-center" style="margin: 0;">
             <blockquote class="blockquote">
             <p>{{ comment.body }}</p>
             </blockquote>
-            <figcaption class="blockquote-footer">
+            <figcaption class="blockquote-footer" style="margin: 0; text-transform: capitalize;">
             {{ comment.name}}
             </figcaption>
         </figure>
-    </div>
-    <a href="{% url 'delete_comment' adventure.id user.id comment.id %}"><button>delete comment</button></a>
-</div>
+      {% if comment.name == user.username %}
+      <a href="{% url 'delete_comment' adventure.id user.id comment.id %}" class="p-2 flex-shrink-1 bd-highlight" id="comment-delete-btn"><i class="fa-regular fa-circle-xmark"></i></a>
+      {% endif %}
+      </div>
+  </div>
 {% endfor %}
 
 <div class="d-flex justify-content-end justify-content-around" >
-  {% if perms.blog.add_comment%}
+  {% if perms.blog.add_comment %}
 <a href="{% url 'add_comment' adventure.id user.id %}" class="card-link"><button type="button" class="btn btn-success">Comment <i class="fa-solid fa-comments"></i></button></a>
   {% endif %}
 </div>
 
+<div class="post-button">
 {% if perms.blog.add_post %}
-<button type="submit" class="btn btn-success" id="addPostBtn">New Destination</button>
+<button type="submit" class="btn btn-primary" id="addPostBtn">New Destination</button>
 {% endif %}
+</div>
 <div id="addPostModal">
-  <h3 class="display-1">Add Post</h3>
+  <h3 class="display-1">New Destination</h3>
   <form method="POST" class="container" style="width: 50%;" enctype="multipart/form-data">
       {{ post_form|crispy }}
       {% csrf_token %}
-      <button type="submit" class="btn btn-success close">Add</button>
+      <button type="submit" class="btn btn-success close" style="width: 100px; margin-top: 10px;"><i class="fa-regular fa-paper-plane"></i></button>
   </form>
 </div>
 

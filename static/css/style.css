@@ -1,5 +1,7 @@
+/* Found this style att:
+https://www.makeuseof.com/css-background-gradients/ */
 body {
-    background-color: rgb(6, 235, 235);
+    background-image: linear-gradient(to right, #00b4db, #0083b0);
 }
 
 .fixed-card {
@@ -62,10 +64,22 @@ body {
     color: red;
 }
 
+.post-button{
+    margin-top: 20px;
+}
+
 .comment {
     filter: drop-shadow(2px 2px 10px rgba(0,0,0,.5));
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+#comment-delete-btn{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: larger;
+    color: red;
 }
 
 @media screen and (max-width: 500px) {
@@ -81,5 +95,9 @@ body {
     .adventure-card {
         margin-left: 0;
         margin-right: 0;
+    }
+    .post-button{
+        display: flex;
+        justify-content: center;
     }
 }

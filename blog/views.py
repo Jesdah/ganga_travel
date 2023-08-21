@@ -121,7 +121,7 @@ def add_comment(request, adventure_id, author_id, *args, **kwargs):
 def delete_comment(request, adventure_id, comment_id, author_id, *args, **kwargs):
     comment= get_object_or_404(Comment, id=comment_id)
     # user = get_object_or_404(User, pk=author_id)
-    if comment.name == request.user:
+    if comment.name == request.user.username:
         comment.delete()
         return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id,author_id]))
     else:
