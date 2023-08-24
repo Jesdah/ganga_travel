@@ -22,7 +22,7 @@
       <h1 class="card-title" ><a class= "title-style" href="{% url 'adventure_detail' adventure.id user.id %}">{{ adventure.name }}</a></h1>
       <p class="card-text"><i class="fa-regular fa-calendar-days"></i> {{ adventure.date|date:"M d, Y" }}</p>
       <p class="card-text" style="text-transform: capitalize;"><small>Created by: {{ adventure.author }}</small></p>
-      {% if perms.blog.edit_adventure %}
+      {% if perms.blog.change_adventure %}
       <a href="/edit/{{ adventure.id }}/{{ user.id }}"><button class="btn btn-primary"><i class="fa-solid fa-pen"></i></button></td></a>
       {% endif %}
       {% if perms.blog.delete_adventure %}

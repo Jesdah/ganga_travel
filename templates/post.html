@@ -28,7 +28,7 @@
       <li class="list-group-item">Destination Created: {{ post.created_on|date:"M d, Y" }}</li>
     </ul>
     <div class="card-buttons d-flex justify-content-evenly align-items-center">
-    {% if perms.blog.edit_post %}
+    {% if perms.blog.change_post %}
       <a href="{% url 'edit_post' post.id adventure.id user.id %}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>
       {% endif %}
     {% if perms.blog.delete_post %}

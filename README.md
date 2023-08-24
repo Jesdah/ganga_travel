@@ -127,40 +127,96 @@ Website is responsive on all screen sizes and no images are pixelated or stretch
 ## Lighthouse Testing.
 ![screenshot of lighthouse score](/assets/images/memory-lighthouse.png)<br>
 
-### Playground Testing.
-The Playground has been tested to ensure that it behaves as expected and that the player cannot cheat their way into a win.<br>
+## Adventure Testing.
+Adventure's page has been tested to ensure that users can add, change and delete without problems, without error messages.<br>
 Steps to test:
 1. Navigate to [Magic card.](https://jesdah.github.io/Memory-cards/)
-2. Click on two cards:
-   - First card: Mountain
-   - Timer:Starts
-   - Flip +1
-   - Second card: Mountain
-   - Flip: +1
-   - Player text: You got a match!
-3. Click on the same cards:
-    - First card: Mountain
-    - Timer: unaffected
-    - Flip: unaffected
-4. Click on two unmatched cards:
-    - First card: Mountain
-    - Timer:Starts
-    - Flip +1
-    - Second card:heart
-    - Flip +1
-    - Player text: No match
-    - First and Second flipps back face down after 2 seconds.
-5. Match all cards.
-   - First card: Mountain
-   - Timer:Starts
-   - Flip +1
-   - Second card: Mountain
-   - Flip: +1
-   - Player text: You got a match!
-   * Match all cards
-   - Timer: Stops
-   - Flips: +16
-   - Player text: All cards match!! Congratulations! 
+2. Add Adventure:
+   - Click: New Adventure
+   - Render: add_adventure.html
+   - Fill in the form
+        - Name: New Adventure
+        - Date: 2023-08-31
+        - Featured_image: image
+   - Click: Send
+   - New Adventure is added to adventure page.
+   - Render Django message "New Adventure created"
+3. Edit Adventure:
+    - Click: The blue Edit button.
+    - Render: edit_adventure.html
+    - Fill in the form
+            - Name: New Adventure to Edited Adventure
+            - Date: 2023-08-31 to 2023-08-28
+            - Featured_image: image to image2
+    - Click: Send
+    - New Adventure is changed to Edited Adventure.
+    - Render Django message "Adventure Changed"
+4. Delete Adventure:
+    - Click: The red Delete button.
+    - Render popup: Are you sure you want to delete Edited Adventure?
+    - Press Cancel:
+        - The delete function is canceled.
+    - Press OK:
+        - Edited Adventure is deleted.
+    - Render adventure page.
+    - Render Django message "Adventure deleted" 
+<br>
+## Destination Testing.
+Destination's page has been tested to ensure that users can add, change and delete without problems, without error messages.<br>
+Steps to test:
+1. Navigate to [Magic card.](https://jesdah.github.io/Memory-cards/)
+2. Add Destination:
+   - Click: New Destination
+   - Render: post_form
+   - Fill in the form
+        - Title: New Destination
+        - Content: This is a Destination
+        - Featured_image: image
+   - Click: Send
+   - New Destination is added to destination page.
+   - Render Django message "New Destination created"
+3. Edit Destination:
+    - Click: The blue Edit button.
+    - Render: edit_post.html
+    - Fill in the form
+        - Title: New Destination to Edited Destination
+        - Content: This is a Destination to This is a Edited Destination
+        - Featured_image: image to image2
+    - Click: Send
+    - New Destination is changed to Edited Destination.
+    - Render Django message "Destination Changed"
+4. Delete Destination:
+    - Click: The red Delete button.
+    - Render popup: Are you sure you want to delete Edited Destination?
+    - Press Cancel:
+        - The delete function is canceled.
+    - Press OK:
+        - Edited Destination is deleted.
+    - Render Destination page.
+    - Render Django message "Destination deleted" 
+<br>
+## Comment Testing.
+Comment section has been tested to ensure that users can add and delete without problems, without error messages.<br>
+Steps to test:
+1. Navigate to [Magic card.](https://jesdah.github.io/Memory-cards/)
+2. Add Comment:
+   - Click: Comment
+   - Render: add_comment.html
+   - Fill in the form
+        - Body: This is a comment!
+   - Click: Send
+   - New Comment is added to destination page.
+   - Render Comment:
+        - Body: This is a comment!
+        - Comment author: Admin
+3. Delete Comment:
+    - Click: The red Delete button.
+    - Render popup: Are you sure you want to delete this Comment?
+    - Press Cancel:
+        - The delete function is canceled.
+    - Press OK:
+        - comment is deleted.
+    - Render Destination page.
 <br>
 
 ### Expected:
