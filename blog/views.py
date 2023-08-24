@@ -45,7 +45,7 @@ class AdventureDetail(View):
                 messages.success(request, 'New Destination created')
                 return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id,author_id]))
             else:
-                messages.error(request, 'Something went wrong, is the title of the Destination unique?')
+                messages.error(request, 'Something went wrong!')
             return render(
                 request,
                 'post.html',{
@@ -81,7 +81,7 @@ def edit_post(request, adventure_id, author_id, post_id):
                 messages.info(request, 'Destination changed')
                 return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id, author_id]))
             else:
-                messages.error(request, 'Something went wrong, is the title of the Destination unique?')
+                messages.error(request, 'Something went wrong!')
         post_form=PostForm(instance=post)
         return render(
             request,
@@ -146,7 +146,7 @@ def add_adventure(request, author_id):
                 adventure_form.save()
                 messages.success(request, 'New adventure created')
             else:
-                messages.error(request, 'Something went wrong, is the name of the adventure unique?')
+                messages.error(request, 'Something went wrong!')
             return redirect('home')
         return render(
                 request,
@@ -167,7 +167,7 @@ def edit_adventure(request, adventure_id, author_id):
                 form.save()
                 messages.info(request, 'Adventure changed')
             else:
-                messages.error(request, 'Something went wrong, is the name of the adventure unique?')
+                messages.error(request, 'Something went wrong!')
             return redirect('home')
         form=AdventureForm(instance=adventure)
         context= {

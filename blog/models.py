@@ -5,7 +5,7 @@ from cloudinary.models import CloudinaryField
 
 
 class Adventure(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50)
     date= models.DateField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_adventure")
     featured_image = CloudinaryField('image', default='placeholder')
@@ -20,7 +20,7 @@ class Adventure(models.Model):
 
 class Post(models.Model):
     adventure = models.ForeignKey(Adventure, on_delete=models.CASCADE,related_name="posts")
-    title = models.CharField(max_length=200, unique=True)
+    title = models.CharField(max_length=200)
     updated_on = models.DateTimeField(auto_now=True)
     featured_image = CloudinaryField('image', default='placeholder')
     content = models.TextField()
