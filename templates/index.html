@@ -12,7 +12,7 @@
   {% endif %}
     <div class="card-img-overlay card-tint">
       <h1 class="card-title" ><a class= "title-style" href="{% url 'adventure_detail' adventure.id user.id %}">{{ adventure.name }}</a></h1>
-      <p class="card-text"><i class="fa-regular fa-calendar-days"></i> {{ adventure.date }}</p>
+      <p class="card-text"><i class="fa-regular fa-calendar-days"></i> {{ adventure.date|date:"M d, Y" }}</p>
       <p class="card-text"><small>Created by: {{ adventure.author }}</small></p>
       {% if perms.blog.edit_adventure %}
       <a href="/edit/{{ adventure.id }}/{{ user.id }}"><button class="btn btn-primary"><i class="fa-solid fa-pen"></i></button></td></a>

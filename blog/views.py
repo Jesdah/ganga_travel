@@ -5,7 +5,6 @@ from .models import Post, Adventure, User, Comment
 from .forms import CommentForm, AdventureForm, PostForm
 
 
-
 class AdventureList(generic.ListView):
     model = Adventure
     queryset = Adventure.objects.filter().order_by("date")
@@ -59,6 +58,7 @@ class AdventureDetail(View):
         else:
             return HttpResponse('You do not have permission to add Posts')
 
+
 def delete_post(request, adventure_id, post_id, author_id, *args, **kwargs):
     post= get_object_or_404(Post, id=post_id)
     user = get_object_or_404(User, pk=author_id)
@@ -69,12 +69,11 @@ def delete_post(request, adventure_id, post_id, author_id, *args, **kwargs):
         return HttpResponse('You do not have permission to delete Posts')
 
 def edit_post(request, adventure_id, author_id, post_id):
-
     post= get_object_or_404(Post, id=post_id)
     user = get_object_or_404(User, pk=author_id)
     if user.has_perm('blog.change_post'):
         if request.method=='POST':
-            post_form= PostForm(request.POST, instance=post)
+            post_form= PostForm(request.POST, request.FILES, instance=post)
             if post_form.is_valid():
                 post_form.save()
             return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id, author_id]))
@@ -155,7 +154,7 @@ def edit_adventure(request, adventure_id, author_id):
     user = get_object_or_404(User, pk=author_id)
     if user.has_perm('blog.change_adventure'):
         if request.method=='POST':
-            form= AdventureForm(request.POST, instance=adventure)
+            form= AdventureForm(request.POST, request.FILES, instance=adventure)
             if form.is_valid():
                 form.save()
                 return redirect('home')

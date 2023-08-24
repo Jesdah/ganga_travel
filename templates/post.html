@@ -16,12 +16,7 @@
       <p class="card-text">{{ post.content }}</p>
     </div>
     <ul class="list-group list-group-flush">
-      {% if post.updated_on == post.created_on %}
-      <li class="list-group-item">Destination Created: {{ post.created_on }}</li>
-      {% else %}
-      <li class="list-group-item">Destination Created: {{ post.created_on }}</li>
-      <li class="list-group-item">Destination Updated: {{ post.updated_on }}</li>
-      {% endif %}
+      <li class="list-group-item">Destination Created: {{ post.created_on|date:"M d, Y" }}</li>
     </ul>
     <div class="card-buttons d-flex justify-content-evenly align-items-center">
     {% if perms.blog.edit_post %}

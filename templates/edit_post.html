@@ -2,7 +2,7 @@
 {% block content %}
 {% load crispy_forms_tags %}
 <h1>Edit Post</h1>
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     {{ edit_form|crispy }}
     {% csrf_token %}
     <div>
