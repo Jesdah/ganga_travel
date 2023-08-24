@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 {% load crispy_forms_tags %}
+{% if user.is_authenticated %}
 <h1 class="display-1">Edit Adventure</h1>
-<form method="POST" enctype="multipart/form-data" class="container" style="width: 50%;">
+<form method="POST" enctype="multipart/form-data" class="container">
     {% csrf_token %}
     {{ form|crispy }}
     <div>
@@ -11,4 +12,5 @@
         </p>
     </div>
 </form>
+{% endif %}
 {% endblock %}

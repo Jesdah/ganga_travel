@@ -3,7 +3,7 @@ from django.views import generic, View
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Post, Adventure, User, Comment
 from .forms import CommentForm, AdventureForm, PostForm
-
+from django.contrib import messages
 
 class AdventureList(generic.ListView):
     model = Adventure
@@ -42,9 +42,10 @@ class AdventureDetail(View):
                 post=post_form.save(commit=False)
                 post.adventure= adventure
                 post.save()
+                messages.success(request, 'New Destination created')
                 return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id,author_id]))
             else:
-                post_form = PostForm()
+                messages.error(request, 'Something went wrong, is the title of the Destination unique?')
             return render(
                 request,
                 'post.html',{
@@ -64,6 +65,7 @@ def delete_post(request, adventure_id, post_id, author_id, *args, **kwargs):
     user = get_object_or_404(User, pk=author_id)
     if user.has_perm('blog.delete_post'):
         post.delete()
+        messages.info(request, 'Destination deleted')
         return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id,author_id]))
     else:
         return HttpResponse('You do not have permission to delete Posts')
@@ -76,7 +78,10 @@ def edit_post(request, adventure_id, author_id, post_id):
             post_form= PostForm(request.POST, request.FILES, instance=post)
             if post_form.is_valid():
                 post_form.save()
-            return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id, author_id]))
+                messages.info(request, 'Destination changed')
+                return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id, author_id]))
+            else:
+                messages.error(request, 'Something went wrong, is the title of the Destination unique?')
         post_form=PostForm(instance=post)
         return render(
             request,
@@ -139,6 +144,9 @@ def add_adventure(request, author_id):
                 adventure_user=adventure_form.save(commit=False)
                 adventure_user.author= current_user
                 adventure_form.save()
+                messages.success(request, 'New adventure created')
+            else:
+                messages.error(request, 'Something went wrong, is the name of the adventure unique?')
             return redirect('home')
         return render(
                 request,
@@ -157,7 +165,10 @@ def edit_adventure(request, adventure_id, author_id):
             form= AdventureForm(request.POST, request.FILES, instance=adventure)
             if form.is_valid():
                 form.save()
-                return redirect('home')
+                messages.info(request, 'Adventure changed')
+            else:
+                messages.error(request, 'Something went wrong, is the name of the adventure unique?')
+            return redirect('home')
         form=AdventureForm(instance=adventure)
         context= {
             'form': form
@@ -172,6 +183,7 @@ def delete_adventure(request, adventure_id, author_id):
     user = get_object_or_404(User, pk=author_id)
     if user.has_perm('blog.delete_adventure'):
         adventure.delete()
+        messages.info(request, 'Adventure deleted')
         return redirect('home')
     else:
         return HttpResponse('You do not have permission to delete Adventure')

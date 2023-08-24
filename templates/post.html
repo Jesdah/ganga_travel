@@ -2,12 +2,21 @@
 {% block content %}
 {% load crispy_forms_tags %}
 {% load cloudinary %}
+{% if user.is_authenticated %}
+
 <h1 class="display-1 title-style">{{ adventure.name }}<i class="fa-solid fa-sun"></i></h1>
 <h2 class="display-5">Destinations:</h2>
+{% if messages %}
+{% for message in messages %}
+    <div class="alert {{ message.tags }}" id="message_destination" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% endif %}
 {% for post in posts %}
 <div class="card  container-sm destination-card">
   {% if "placeholder" in post.featured_image.url %}
-  <img src="https://res.cloudinary.com/djs04srkx/image/upload/v1689779280/samples/balloons.jpg" class="post-card-image">
+  <img src="https://res.cloudinary.com/djs04srkx/image/upload/c_fill,g_auto,h_250,w_970/b_rgb:000000,fl_relative,w_0.5,y_0.18/v1689779263/samples/landscapes/architecture-signs.jpg" class="post-card-image">
   {% else %}
   <img src=" {{ post.featured_image.url }}" class="post-card-image">
   {% endif %}
@@ -63,11 +72,18 @@
 </div>
 <div id="addPostModal">
   <h3 class="display-1">New Destination</h3>
-  <form method="POST" class="container" style="width: 50%;" enctype="multipart/form-data">
+  <form method="POST" class="container" enctype="multipart/form-data">
       {{ post_form|crispy }}
       {% csrf_token %}
       <button type="submit" class="btn btn-success close" style="width: 100px; margin-top: 10px;"><i class="fa-regular fa-paper-plane"></i></button>
   </form>
 </div>
-
+{% else %}
+<div class="position-absolute top-50 start-50 translate-middle">
+  <p class="card">Oops! it seems you are not logged in, log in or create an account here!</p>
+    <div class="d-flex justify-content-center">
+      <a href="{% url 'account_login' %}"><button type="button" class="btn btn-light">sign in!</button></a>
+    </div>
+  </div>
+{% endif %}
 {% endblock %}

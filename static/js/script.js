@@ -25,4 +25,15 @@ window.onclick = function(event) {  // When the user clicks anywhere outside of 
   }
 };
 
+var message_adv = document.getElementById("message_adventure");
+
+setTimeout(function(){ 
+   message_adv.style.display = "none"; 
+}, 3000);
+
+var message_des = document.getElementById("message_destination");
+
+setTimeout(function(){ 
+   message_des.style.display = "none"; 
+}, 3000);
 

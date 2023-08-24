@@ -2,18 +2,26 @@
 
 {% block content %}
 {% load crispy_forms_tags %}
+{% if user.is_authenticated %}
 <h1 class="display-1">Your Adventures</h1>
+{% if messages %}
+{% for message in messages %}
+    <div class="alert  {{ message.tags }}" id="message_adventure" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% endif %}
 {% for adventure in adventure_list %}
 <div class="card adventure-card">
   {% if "placeholder" in adventure.featured_image.url %}
-  <img src="https://res.cloudinary.com/djs04srkx/image/upload/v1689779263/samples/landscapes/architecture-signs.jpg"class="card-img fixed-card adventure-image" alt="...">
+  <img src="https://res.cloudinary.com/djs04srkx/image/upload/v1689779260/samples/landscapes/girl-urban-view.jpg"class="card-img fixed-card adventure-image" alt="...">
   {% else %}
   <img src=" {{ adventure.featured_image.url }}"class="card-img fixed-card adventure-image" alt="...">
   {% endif %}
     <div class="card-img-overlay card-tint">
       <h1 class="card-title" ><a class= "title-style" href="{% url 'adventure_detail' adventure.id user.id %}">{{ adventure.name }}</a></h1>
       <p class="card-text"><i class="fa-regular fa-calendar-days"></i> {{ adventure.date|date:"M d, Y" }}</p>
-      <p class="card-text"><small>Created by: {{ adventure.author }}</small></p>
+      <p class="card-text" style="text-transform: capitalize;"><small>Created by: {{ adventure.author }}</small></p>
       {% if perms.blog.edit_adventure %}
       <a href="/edit/{{ adventure.id }}/{{ user.id }}"><button class="btn btn-primary"><i class="fa-solid fa-pen"></i></button></td></a>
       {% endif %}
@@ -27,5 +35,13 @@
 {% endfor %}
 {% if perms.blog.add_adventure %}
 <a href="/add/{{ user.id }}"><button type="button" class="btn btn-primary">New Adventure <i class="fa-solid fa-sun"></i></button></a>
+{% endif %}
+{% else %}
+<div class="position-absolute top-50 start-50 translate-middle">
+<p class="card">Oops! it seems you are not logged in, log in or create an account here!</p>
+  <div class="d-flex justify-content-center">
+    <a href="{% url 'account_login' %}"><button type="button" class="btn btn-light">sign in!</button></a>
+  </div>
+</div>
 {% endif %}
 {% endblock %}
