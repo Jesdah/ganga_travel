@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 {% if user.is_authenticated %}
 {% if perms.blog.change_post %}
-<h1 class="display-5">Edit Destination</h1>
+<h1 class="display-1">Edit Destination</h1>
 <form method="POST" enctype="multipart/form-data" class="container">
     {{ edit_form|crispy }}
     {% csrf_token %}

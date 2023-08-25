@@ -4,7 +4,6 @@
 {% if user.is_authenticated %}
 {% if perms.blog.add_adventure %}
 <h1 class="display-1">Add an Adventure.</h1>
-<p>Posting as: {{ user.username }}</p>
 <form method="POST" enctype="multipart/form-data" class="container" style="width: 50%;">
     {{ adventure_form|crispy }}
     {% csrf_token %}

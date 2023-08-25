@@ -16,9 +16,9 @@
 {% for post in posts %}
 <div class="card  container-sm destination-card">
   {% if "placeholder" in post.featured_image.url %}
-  <img src="https://res.cloudinary.com/djs04srkx/image/upload/c_fill,g_auto,h_250,w_970/b_rgb:000000,fl_relative,w_0.5,y_0.18/v1689779263/samples/landscapes/architecture-signs.jpg" class="post-card-image">
+  <img src="https://res.cloudinary.com/djs04srkx/image/upload/c_fill,g_auto,h_250,w_970/b_rgb:000000,fl_relative,w_0.5,y_0.18/v1689779263/samples/landscapes/architecture-signs.jpg" alt="Placeholder image of streetsigns in New York" class="post-card-image">
   {% else %}
-  <img src=" {{ post.featured_image.url }}" class="post-card-image">
+  <img src=" {{ post.featured_image.url }}" alt="The image you have selected." class="post-card-image">
   {% endif %}
     <div class="card-body">
       <h5 class="card-title display-6 title-style">{{ post.title }}</h5>
@@ -29,10 +29,10 @@
     </ul>
     <div class="card-buttons d-flex justify-content-evenly align-items-center">
     {% if perms.blog.change_post %}
-      <a href="{% url 'edit_post' post.id adventure.id user.id %}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>
+      <a href="{% url 'edit_post' post.id adventure.id user.id %}" class="card-link" aria-label="Edit Destination"><i class="fa-solid fa-pen-to-square"></i></a>
       {% endif %}
     {% if perms.blog.delete_post %}
-      <a onclick="return confirm('Are you sure you want to delete {{ post.title }}?')" href="{% url 'delete_post' post.id adventure.id user.id %}" class="card-link"><i id="trash" class="fa-solid fa-trash"></i></a>
+      <a onclick="return confirm('Are you sure you want to delete {{ post.title }}?')" href="{% url 'delete_post' post.id adventure.id user.id %}" class="card-link" aria-label="Delete destination"><i id="trash" class="fa-solid fa-trash"></i></a>
     {% endif %}
     </div>
     </div>
@@ -40,6 +40,14 @@
 {% empty %}
         <tr><td>You have no Destinations planed.</td></tr>  
 {% endfor %}
+
+<!-- Button trigger modal -->
+{% if perms.blog.add_post %}
+<button type="button" aria-label="Add destination" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-bottom: 20px;">
+  New Destination
+</button>
+{% endif %}
+
 <h4>Comments: </h4>
 {% for comment in comments %}
 <div class="card container-fluid container-sm comment">
@@ -53,7 +61,7 @@
             </figcaption>
         </figure>
       {% if comment.name == user.username %}
-      <a onclick="return confirm('Are you sure you want to delete this Comment?')" href="{% url 'delete_comment' adventure.id user.id comment.id %}" class="p-2 flex-shrink-1 bd-highlight" id="comment-delete-btn"><i class="fa-regular fa-circle-xmark"></i></a>
+      <a onclick="return confirm('Are you sure you want to delete this Comment?')" aria-label="Delete comment" href="{% url 'delete_comment' adventure.id user.id comment.id %}" class="p-2 flex-shrink-1 bd-highlight" id="comment-delete-btn"><i class="fa-regular fa-circle-xmark"></i></a>
       {% endif %}
       </div>
   </div>
@@ -61,23 +69,18 @@
 
 <div class="d-flex justify-content-end justify-content-around" >
   {% if perms.blog.add_comment %}
-<a href="{% url 'add_comment' adventure.id user.id %}" class="card-link"><button type="button" class="btn btn-success">Comment <i class="fa-solid fa-comments"></i></button></a>
+<button type="button" class="btn btn-success"><a href="{% url 'add_comment' adventure.id user.id %}" class="card-link" style="text-decoration: none; color: white;">Comment <i class="fa-solid fa-comments"></i></a></button>
   {% endif %}
 </div>
 
-<!-- Button trigger modal -->
-{% if perms.blog.add_post %}
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  New Destination
-</button>
-{% endif %}
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New Destination</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

@@ -1,18 +1,37 @@
-from django.shortcuts import render, get_object_or_404, reverse,  redirect
+"""
+Creates an adventure first and then creates a destination,
+destinations and adventures are linked together with the adventure id
+so that destinations with the same adventure id are shown at the same time on the destination page.
+"""
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
 from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib import messages
 from .models import Post, Adventure, User, Comment
 from .forms import CommentForm, AdventureForm, PostForm
-from django.contrib import messages
+
 
 class AdventureList(generic.ListView):
+    """
+    Renders The adventures on adventure page.
+
+    """
     model = Adventure
     queryset = Adventure.objects.filter().order_by("date")
     template_name = "index.html"
 
 
 class AdventureDetail(View):
+    """
+    Class for add post and get post
+    """
+
     def get(self, request, adventure_id, *args, **kwargs):
+        """
+        Redners Destinations on destination page.
+        When a Destination is created this function connects 
+        the destination with adventure_id.
+        """
         queryset=Adventure.objects.filter()
         adventure= get_object_or_404(queryset, id=adventure_id)
         posts = adventure.posts.filter().order_by('created_on')
@@ -30,6 +49,9 @@ class AdventureDetail(View):
 
 
     def post(self, request, adventure_id, author_id, *args, **kwargs):
+        """
+        Creates a destination and connects it with adventure_id
+        """
         queryset=Adventure.objects.filter()
         adventure= get_object_or_404(queryset, id = adventure_id)
         posts = adventure.posts.filter().order_by('created_on')
@@ -43,7 +65,8 @@ class AdventureDetail(View):
                 post.adventure= adventure
                 post.save()
                 messages.success(request, 'New Destination created')
-                return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id,author_id]))
+                return HttpResponseRedirect(reverse('adventure_detail',
+                 args=[adventure_id,author_id]))
             else:
                 messages.error(request, 'Something went wrong!')
             return render(
@@ -60,7 +83,10 @@ class AdventureDetail(View):
             return HttpResponse('You do not have permission to add Posts')
 
 
-def delete_post(request, adventure_id, post_id, author_id, *args, **kwargs):
+def delete_post(request, adventure_id, post_id, author_id):
+    """
+    Checks if the user has permission and then lets the user to delete data.
+    """
     post= get_object_or_404(Post, id=post_id)
     user = get_object_or_404(User, pk=author_id)
     if user.has_perm('blog.delete_post'):
@@ -70,7 +96,11 @@ def delete_post(request, adventure_id, post_id, author_id, *args, **kwargs):
     else:
         return HttpResponse('You do not have permission to delete Posts')
 
+
 def edit_post(request, adventure_id, author_id, post_id):
+    """
+    Render Edit_post.html, checks if the user has permission, allows the user to change data.
+    """
     post= get_object_or_404(Post, id=post_id)
     user = get_object_or_404(User, pk=author_id)
     if user.has_perm('blog.change_post'):
@@ -79,7 +109,8 @@ def edit_post(request, adventure_id, author_id, post_id):
             if post_form.is_valid():
                 post_form.save()
                 messages.info(request, 'Destination changed')
-                return HttpResponseRedirect(reverse('adventure_detail', args=[adventure_id, author_id]))
+                return HttpResponseRedirect(reverse('adventure_detail',
+                 args=[adventure_id, author_id]))
             else:
                 messages.error(request, 'Something went wrong!')
         post_form=PostForm(instance=post)
@@ -92,7 +123,11 @@ def edit_post(request, adventure_id, author_id, post_id):
     else:
         return HttpResponse('You do not have permission to edit Posts')
 
-def add_comment(request, adventure_id, author_id, *args, **kwargs):
+
+def add_comment(request, adventure_id, author_id):
+    """
+    Checks if the user has permission and lets the user to add comment.
+    """
     queryset=Adventure.objects.filter()
     adventure= get_object_or_404(queryset, id = adventure_id)
     posts = adventure.posts.filter().order_by('created_on')
@@ -122,7 +157,11 @@ def add_comment(request, adventure_id, author_id, *args, **kwargs):
     else:
         return HttpResponse('You do not have permission to comment')
 
-def delete_comment(request, adventure_id, comment_id, author_id, *args, **kwargs):
+
+def delete_comment(request, adventure_id, comment_id, author_id):
+    """
+    Checks if the user is the author of the comment and then lets the user delete comment.
+    """
     comment= get_object_or_404(Comment, id=comment_id)
     # user = get_object_or_404(User, pk=author_id)
     if comment.name == request.user.username:
@@ -131,7 +170,11 @@ def delete_comment(request, adventure_id, comment_id, author_id, *args, **kwargs
     else:
         return HttpResponse('You do not have permission to delete this Comment')
 
+
 def add_adventure(request, author_id):
+    """
+    Checks if the user has permission and then lets the user to add adventure.
+    """
     queryset=User.objects.filter()
     current_user = get_object_or_404(queryset,id=author_id)
     user = get_object_or_404(User, pk=author_id)
@@ -157,7 +200,11 @@ def add_adventure(request, author_id):
     else:
         return HttpResponse('You do not have permission to add Adventure')
 
+
 def edit_adventure(request, adventure_id, author_id):
+    """
+    Checks if the user has permission and then lets the user to edit adventure.
+    """
     adventure= get_object_or_404(Adventure, id=adventure_id)
     user = get_object_or_404(User, pk=author_id)
     if user.has_perm('blog.change_adventure'):
@@ -179,6 +226,9 @@ def edit_adventure(request, adventure_id, author_id):
 
 
 def delete_adventure(request, adventure_id, author_id):
+    """
+    Checks if the user has permission and the lets the user to delete comment.
+    """
     adventure= get_object_or_404(Adventure, id=adventure_id)
     user = get_object_or_404(User, pk=author_id)
     if user.has_perm('blog.delete_adventure'):
