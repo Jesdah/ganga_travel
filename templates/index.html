@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-
 {% block content %}
 {% load crispy_forms_tags %}
+{% load cloudinary %}
 {% if user.is_authenticated %}
 <h1 class="display-1">Your Adventures</h1>
 {% if messages %}
@@ -40,7 +40,7 @@
 <div class="position-absolute top-50 start-50 translate-middle">
 <p class="card">Oops! it seems you are not logged in, log in or create an account here!</p>
   <div class="d-flex justify-content-center">
-    <a href="{% url 'account_login' %}"><button type="button" class="btn btn-light">sign in!</button></a>
+    <button type="button" class="btn btn-light"><a href="{% url 'account_login' %}" style="text-decoration: none; color: black;">sign in!</a></button>
   </div>
 </div>
 {% endif %}

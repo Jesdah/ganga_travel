@@ -218,19 +218,35 @@ Steps to test:
         - comment is deleted.
     - Render Destination page.
 <br>
+## Create, modify and delete as a non-authorized user.
+1. Log in as Jesper with authorization: Creator.
+    - Jesper can create, modify and delete data.
+    - All buttons is visible for this user.
 
+2. Log in as David with authorization: Fellow traveler.
+    - David can create, modify and delete destinations.
+    - Only buttons on Destination page is visible for this user.
+* Break in and add adventure or Edit adventure.
+    * Input: https://ganga-travel-5947dd277fb2.herokuapp.com/add/1/
+        result: Empty screen.
+    * input: https://ganga-travel-5947dd277fb2.herokuapp.com/edit/5/1/
+        result: Empty screen.
+3. Log in as Peter with authorization: Guest.
+    - Peter can view content and add comments.
+    - Only comment button is visible for this user.
+* Break in and add adventure or Edit adventure.
+    * Input: https://ganga-travel-5947dd277fb2.herokuapp.com/add/1/
+        result: Empty screen.
+    * input: https://ganga-travel-5947dd277fb2.herokuapp.com/edit/5/1/
+        result: Empty screen.
+* Break in and Edit adventure.
+    * Input: https://ganga-travel-5947dd277fb2.herokuapp.com/edit_post/6/5/1/
+        result: Empty screen.
 ### Expected:
-
-Cards would flip over when clicked and cards that didn't match would flip back, the timer would start when the first card was clicked and stop when all cards were matched.
+The expectation has been that the site works as it should without broken links and that the user receives feedback in all situations and that unauthorized users cannot get in the back way and change or add data.
 
 ### Actual:
-
-The game behaved as expected, the player cannot cheat their way through the game via loopholes.
-
-### Footer
-Tests have been done to ensure that the timer and Flip start counting and stop when they should.
-
-They behaved as expected.
+The site works as expected
 
 ### Validator Testing
 - HTML
@@ -244,26 +260,32 @@ They behaved as expected.
   - No errors were found when passing through the official [Jshint linter](https://jshint.com/)
   ![Jshint result script.js](/assets/images/memory-jshint-validator.png)
 ### Bugs.
-During most of the project I have not been able to get the icons to mix.
-I solved it by creating a new id for each card.
-Then a new problem was created that the card could not be matched. I solved it by creating a new span and putting the icons in there aswell. The last thing I did was set the font-size to 0 on the new span so that the user don't see the text but the match function can still read it, wich solved the problem.
+When I open the app locally, everything works as expected, but when I open the app in heroku, javascript is not loaded, so some functions do not work.
 ### Unfixed Bugs
-When using the website on an iPhone 13, the icons on the back disappear right after the cards have been turned over, which makes it difficult for the player to remember what the symbol is.
-I have poor knowledge of IOS so I haven't been able to fix it.
+When I open the app locally, everything works as expected, but when I open the app in heroku, javascript is not loaded, so some functions do not work.
 ### Deployment.
 The following git commands were used throughout development to push code to the remote repo:
 
 ```git add <file>``` - This command was used to add the file(s) to the staging area before they are committed.<br>
 ```git commit -m “commit message”``` - This command was used to commit changes to the local repository queue ready for the final step.<br>
 ```git push``` - This command was used to push all committed code to the remote repository on github.
-### Deployment to Github Pages
-- The site was deployed to GitHub pages. The steps to deploy are as follows: 
-  - In the GitHub repository, navigate to the Settings tab 
-  - From the menu on left select 'Pages'
-  - From the source section drop-down menu, select the Branch: main
-  - Click 'Save'
-  - A live link will be displayed in a green banner when published successfully. 
-The live link can be found here. https://jesdah.github.io/Memory-cards/
+
+### Deployment
+- Use the following steps to deploy the poject to Heroku:
+1. Use the "pip freeze -- local > requirements.txt" command in the gitPod terminal; to save any libraries that need to be installed to the project files in Heroku.
+2. Login or create a Heroku account.
+3. Click the "New" button in the upper right corner and select "Create New App".
+4. Choose an app name and your region and click "Create App". Note: the app name must be unique.
+5. Go to the "Settings" tab, add the python build pack and then the node.js build pack. This is to ensure the project functions correctly with the Code Institute pre-installed template.
+6. Create a "Config VAR" with the 'CREDS' key and the enter the value of the creds.json file.
+7. Create a second "Config VAR" with the key of 'PORT' and value of '8000'
+8. Go to the "Deploy" tab and pick GitHub as a deployment method.
+9. Search for a repository to connect to.
+10. Click enable automatic deploys and then deploy branch.
+11. Wait for the app to build and then click on the "View" link. 
+
+The live link can be found [here](https://minesweeper-project3.herokuapp.com/).
+
 ### Clone the Repository Code Locally
 Navigate to the GitHub Repository you want to clone to use locally:
 - Click on the code drop down button
