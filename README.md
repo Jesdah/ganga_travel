@@ -261,8 +261,10 @@ The site works as expected
   ![Jshint result script.js](/assets/images/memory-jshint-validator.png)
 ### Bugs.
 When I open the app locally, everything works as expected, but when I open the app in heroku, javascript is not loaded, so some functions do not work.
+
+I solved it by entering the script at the bottom of the relevant HTML page.
 ### Unfixed Bugs
-When I open the app locally, everything works as expected, but when I open the app in heroku, javascript is not loaded, so some functions do not work.
+No unfixed bugs.
 ### Deployment.
 The following git commands were used throughout development to push code to the remote repo:
 

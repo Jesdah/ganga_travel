@@ -60,7 +60,7 @@ body {
     height: 70px;
 }
 
-#trash {
+.fa-trash {
     color: red;
 }
 
@@ -74,7 +74,7 @@ body {
     margin-bottom: 10px;
 }
 
-#comment-delete-btn{
+.comment-delete-btn{
     display: flex;
     align-items: center;
     text-decoration: none;
