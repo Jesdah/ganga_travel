@@ -1,4 +1,3 @@
-![screenshot of the site on different devices](/assets/images/memory-amiresponsive.png)
 # Ganaga|Travel 
 ## Your personal travel planner, create an adventure and add destinations with information for your travel party to share!
 
@@ -6,7 +5,7 @@ In Ganga Travel you can create adventures and plan them by creating destinations
 Users can create, modify and delete content to which they are authorized.
 
 ### Adventures/home.
-![screenshot of Modal screen](/assets/images/memory-modal.png)
+![screenshot of Adventures screen](/static/images/ganga-travel-adventure.png)
 On the adventure page, which is the home page, the user is met by a header, page content and a footer.
 <br>
 The content of the page consists of various cards with images which are then partially covered by text and buttons.
@@ -16,21 +15,21 @@ The purpose of the image is to be a teaser image and not show too much, the text
 At the bottom there is a button to be able to add a new adventure, these three buttons are only visible to the user who is authorized to use these functions.
 
 ### Add Adventure.
-![screenshot of the play-ground](/assets/images/memory-playground.png)
+![screenshot of add adventure page.](/static/images/ganaga-travel-add-adventure.png)
 The user clicks on New Adventure and is welcomed by a form where the user must fill in the name of the adventure, the date and possibly choose a picture. if no image is selected, a default image is used instead. When the user is finished, he or she presses the send button and is sent back to the homepage.
 
 ### Edit Adventure.
-![Screenshot of No match text](/assets/images/memory-nomatch-playertext.png)<br>
-![Screenshot of You got a match text](/assets/images/memory-yougotamatch-playertext.png)<br>
-![Screenshot of all cards match text](/assets/images/memory-allcardsmatch-playertext.png)<br>
+![Screenshot of edit adventure page](/static/images/ganaga-travel-edit-adventure.png)<br>
+![Screenshot of message text](/static/images/ganaga-travel-message.png)<br>
 
 If the user presses Edit, the user is greeted by a form, it is already filled in, but the user can delete or add text or an image. When the user is satisfied with the changes, he or she presses send and is sent back to the homepage.
 
 ### Delete Adventure.
-![Screenshot of the footer with flip counter and timer](/assets/images/memory-footer.png)
+![Screenshot of the popup](/static/images/ganaga-travel-delete-popup.png)
 If the user presses Delete, a pop-up window appears asking the user if they want to delete this adventure, if the user presses yes, the adventure is deleted, if the user presses no, the process is canceled.
 
 ### Destinations.
+![Screenshot of the Destination page](/static/images/ganaga-travel-destination.png)
 When the user has pressed one of the titles on the adventure page, they are welcomed by the destination page. Here you can see the title of the adventure so that the user does not forget which one they are in.
 The different destinations are presented in different cards with an image, title, text box, when it was created, when it was last updated and two buttons for edit and delete.
 <br>
@@ -39,17 +38,18 @@ Here I have chosen to use large and complete images because I want users to be a
 Further down the page is the comment section, they are sorted from oldest to newest to create a conversation and it shows which user has written the comment. Users can delete comments, but only those that you have written yourself. And at the bottom there is a button to add new destinations. All buttons are only visible to users who are authorized to use these functions.
 
 ### Add Destination.
-If the user clicks on a new destination, a pop-up window appears at the bottom of the destination page.
-<br>
-This form is already filled in and the user can add or remove title, text or image, the user then presses send and the box closes down. Should the user regret it, the form will be closed if the user presses anywhere outside the box.
+![Screenshot of the add destination page](/static/images/ganaga-travel-new-destination-modal.png)
+If the user clicks on a new destination, a pop-up window appears at the destination page. The user then presses send and the box closes down. Should the user regret it, the form will be closed if the user presses anywhere outside the box.
 
 ### Edit Destination.
+![Screenshot of the edit destination page](/static/images/ganaga-travel-edit-destination.png)
 When the user has pressed edit, a form is displayed that has already been filled in, here you can change the title, text or image. When the user is satisfied with the changes, they press send and are sent back to the destination page.
 
 ### Delete Destination.
 If the user presses Delete, a pop-up window appears asking the user if they want to delete this destination, if the user presses yes, the destination is deleted, if the user presses no, the process is canceled.
 
 ### Add Comment.
+![Screenshot of the add comment page](/static/images/ganaga-travel-add-comment.png)
 When the user presses add comment, a page opens that allows the user to fill in what he wants to say, when finished, the user presses send and is sent back to the destination page.
 
 ### Delete Comment.
@@ -81,7 +81,7 @@ The footer is identical on all pages.
 * Delete data
 
 ### Features left to implement.
-
+I would like to add the ability to add googlemaps in the future.
 
 ### Technologies.
 * HTML
@@ -91,7 +91,7 @@ The footer is identical on all pages.
 * Git
     * Used to commit and push code during the development of the Website
 * Git hub
-    * Source code is hosted on GitHub and delpoyed using Git Pages.
+    * Source code is hosted on GitHub.
 * JavaScript
     * The site was scripted using JavaScript.
 * Django
@@ -100,8 +100,8 @@ The footer is identical on all pages.
     * The site was styled and made responsive using Bootstap as a framewok.
 * Python
     * The site was developed using Python.
-* [Fontawesome](https://fontawesome.com/)
-    * Is used to download icons used.
+* Heroku
+    * The site was delpoyed using Heroku App.
 
 # Testing.
 
@@ -111,7 +111,7 @@ The footer is identical on all pages.
 ### Responsivenes.
 The site were tested to ensure responsiveness on screen sizes from 320px and upwards on Chrome and Edge.
 ### Steps to test:
-1. Open browser and navigate to [Magic cards](https://jesdah.github.io/Memory-cards/).
+1. Open browser and navigate to [Ganga Travel](https://ganga-travel-5947dd277fb2.herokuapp.com/).
 2. Open the developer tools (right click and inspect)
 3. Set to responsive and decrease width to 320px
 4. Set the zoom to 50%
@@ -125,12 +125,12 @@ Website is responsive on all screen sizes and no images are pixelated or stretch
 * Iphone 13
 * Lenovo ideapad S340
 ## Lighthouse Testing.
-![screenshot of lighthouse score](/assets/images/memory-lighthouse.png)<br>
+![screenshot of lighthouse score](/static/images/ganaga-travel-lighthouse.png)<br>
 
 ## Adventure Testing.
 Adventure's page has been tested to ensure that users can add, change and delete without problems, without error messages.<br>
 Steps to test:
-1. Navigate to [Magic card.](https://jesdah.github.io/Memory-cards/)
+1. Navigate to [Ganga Travel.](https://ganga-travel-5947dd277fb2.herokuapp.com/)
 2. Add Adventure:
    - Click: New Adventure
    - Render: add_adventure.html
@@ -164,7 +164,7 @@ Steps to test:
 ## Destination Testing.
 Destination's page has been tested to ensure that users can add, change and delete without problems, without error messages.<br>
 Steps to test:
-1. Navigate to [Magic card.](https://jesdah.github.io/Memory-cards/)
+1. Navigate to [Destination page](https://ganga-travel-5947dd277fb2.herokuapp.com/8/2/)
 2. Add Destination:
    - Click: New Destination
    - Render: post_form
@@ -198,7 +198,7 @@ Steps to test:
 ## Comment Testing.
 Comment section has been tested to ensure that users can add and delete without problems, without error messages.<br>
 Steps to test:
-1. Navigate to [Magic card.](https://jesdah.github.io/Memory-cards/)
+1. Navigate to [Destination page](https://ganga-travel-5947dd277fb2.herokuapp.com/8/2/)
 2. Add Comment:
    - Click: Comment
    - Render: add_comment.html
@@ -251,14 +251,17 @@ The site works as expected
 ### Validator Testing
 - HTML
   - No errors were returned when passing through the official [W3C validator](https://validator.w3.org)
-  ![validator result index.html](/assets/images/memory-html-validator.png)<br>
+  ![validator result index.html](/static/images/ganga-travel-index-validation.png)<br>
 
 - CSS
   - No errors were found when passing through the official [(Jigsaw) validator](https://jigsaw.w3.org)
-  ![validator result style.css](/assets/images/Memory-css-validator.png)<br>
+  ![validator result style.css](/static/images/ganaga-travel-css-validator.png)<br>
 
   - No errors were found when passing through the official [Jshint linter](https://jshint.com/)
-  ![Jshint result script.js](/assets/images/memory-jshint-validator.png)
+  ![Jshint result script](/static/images/ganaga-travel-js-validator.png)
+
+  - No errors were found when passing through [CI Python Linter](https://pep8ci.herokuapp.com/#)
+  ![Jshint result script](/static/images/ganaga-travel-view.png)
 ### Bugs.
 When I open the app locally, everything works as expected, but when I open the app in heroku, javascript is not loaded, so some functions do not work.
 
@@ -286,7 +289,7 @@ The following git commands were used throughout development to push code to the 
 10. Click enable automatic deploys and then deploy branch.
 11. Wait for the app to build and then click on the "View" link. 
 
-The live link can be found [here](https://minesweeper-project3.herokuapp.com/).
+The live link can be found [here](https://ganga-travel-5947dd277fb2.herokuapp.com/).
 
 ### Clone the Repository Code Locally
 Navigate to the GitHub Repository you want to clone to use locally:
@@ -296,21 +299,14 @@ Navigate to the GitHub Repository you want to clone to use locally:
 - Open your IDE of choice (git must be installed for the next steps)
 - Type git clone copied-git-url into the IDE terminal
 The project will now been cloned on your local machine for use.
+
 ### Credit.
-* The code structure for shuffeling the cards was taken from: https://github.com/swapnilsparsh/30DaysOfJavaScript/blob/master/27%20-%20Memory%20Matching%20Game/script.js
+* I have taken alot of inspiration from "Hello Django" and "I think before i blog"(https://learn.codeinstitute.net/ci_program/diplomainfullstacksoftwarecommoncurriculum)
 
-* The code structure for flip function and match function was taken from: https://stackoverflow.com/questions/75882658/memory-game-check-for-match-with-javascript
+* The bakground color for the body I got [here](https://www.makeuseof.com/css-background-gradients/)
 
-* The this===first code to ensure that the player couldnt click the same card multible times to win the game was taken from: https://marina-ferreira.github.io/tutorials/js/memory-game/
+* I found the Date picker [here](https://stackoverflow.com/questions/3367091/whats-the-cleanest-simplest-to-get-running-datepicker-in-django)
 
-* I have used [w3schools](https://www.w3schools.com/) a lot for inspiration and tips and tricks
+* I have used StackOverflow for tips and tricks.
 
-* The code stucture for the timer start and stop funtion was take from: https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
-
-* The code for the modal was taken from: https://www.w3schools.com/howto/howto_css_modals.asp
-
-* For icons on the cards I have used: [Fontawesome](https://fontawesome.com/)
-
-* To align the cards in 4x4 I have used code from: https://www.codingnepalweb.com/build-memory-card-game-html-javascript/
-
-* To make the cards act responsive when the user clicks them I have used code from: https://marina-ferreira.github.io/tutorials/js/memory-game/
+* I have read alot of [Django](https://www.djangoproject.com/)
