@@ -5,7 +5,7 @@ In Ganga Travel you can create adventures and plan them by creating destinations
 Users can create, modify and delete content to which they are authorized.
 
 ### Adventures/home.
-![screenshot of Adventures screen](/static/images/ganga-travel-adventure.png)
+![screenshot of Adventures screen](/static/images/ganga-travel-adventure.png)<br>
 On the adventure page, which is the home page, the user is met by a header, page content and a footer.
 <br>
 The content of the page consists of various cards with images which are then partially covered by text and buttons.
@@ -15,7 +15,7 @@ The purpose of the image is to be a teaser image and not show too much, the text
 At the bottom there is a button to be able to add a new adventure, these three buttons are only visible to the user who is authorized to use these functions.
 
 ### Add Adventure.
-![screenshot of add adventure page.](/static/images/ganaga-travel-add-adventure.png)
+![screenshot of add adventure page.](/static/images/ganaga-travel-add-adventure.png)<br>
 The user clicks on New Adventure and is welcomed by a form where the user must fill in the name of the adventure, the date and possibly choose a picture. if no image is selected, a default image is used instead. When the user is finished, he or she presses the send button and is sent back to the homepage.
 
 ### Edit Adventure.
@@ -25,11 +25,11 @@ The user clicks on New Adventure and is welcomed by a form where the user must f
 If the user presses Edit, the user is greeted by a form, it is already filled in, but the user can delete or add text or an image. When the user is satisfied with the changes, he or she presses send and is sent back to the homepage.
 
 ### Delete Adventure.
-![Screenshot of the popup](/static/images/ganaga-travel-delete-popup.png)
+![Screenshot of the popup](/static/images/ganaga-travel-delete-popup.png)<br>
 If the user presses Delete, a pop-up window appears asking the user if they want to delete this adventure, if the user presses yes, the adventure is deleted, if the user presses no, the process is canceled.
 
 ### Destinations.
-![Screenshot of the Destination page](/static/images/ganaga-travel-destination.png)
+![Screenshot of the Destination page](/static/images/ganaga-travel-destination.png)<br>
 When the user has pressed one of the titles on the adventure page, they are welcomed by the destination page. Here you can see the title of the adventure so that the user does not forget which one they are in.
 The different destinations are presented in different cards with an image, title, text box, when it was created, when it was last updated and two buttons for edit and delete.
 <br>
@@ -38,24 +38,25 @@ Here I have chosen to use large and complete images because I want users to be a
 Further down the page is the comment section, they are sorted from oldest to newest to create a conversation and it shows which user has written the comment. Users can delete comments, but only those that you have written yourself. And at the bottom there is a button to add new destinations. All buttons are only visible to users who are authorized to use these functions.
 
 ### Add Destination.
-![Screenshot of the add destination page](/static/images/ganaga-travel-new-destination-modal.png)
+![Screenshot of the add destination page](/static/images/ganaga-travel-new-destination-modal.png)<br>
 If the user clicks on a new destination, a pop-up window appears at the destination page. The user then presses send and the box closes down. Should the user regret it, the form will be closed if the user presses anywhere outside the box.
 
 ### Edit Destination.
-![Screenshot of the edit destination page](/static/images/ganaga-travel-edit-destination.png)
+![Screenshot of the edit destination page](/static/images/ganaga-travel-edit-destination.png)<br>
 When the user has pressed edit, a form is displayed that has already been filled in, here you can change the title, text or image. When the user is satisfied with the changes, they press send and are sent back to the destination page.
 
 ### Delete Destination.
 If the user presses Delete, a pop-up window appears asking the user if they want to delete this destination, if the user presses yes, the destination is deleted, if the user presses no, the process is canceled.
 
 ### Add Comment.
-![Screenshot of the add comment page](/static/images/ganaga-travel-add-comment.png)
+![Screenshot of the add comment page](/static/images/ganaga-travel-add-comment.png)<br>
 When the user presses add comment, a page opens that allows the user to fill in what he wants to say, when finished, the user presses send and is sent back to the destination page.
 
 ### Delete Comment.
 If the user presses Delete, a pop-up window appears asking the user if they want to delete this comment, if the user presses yes, the comment is deleted, if the user presses no, the process is canceled.
 
 ### Header.
+![Screenshot of logo](/static/images/ganaga-travel-logo.png)<br>
 The header contains a title and links to the home page and log out. If a user is not logged in, links for logging in or registering an account are visible.
 <br>
 I have copied the style for the header from the code institute's walkthrough project because I thought it was neat and clean, but I have added my own logo.
@@ -66,6 +67,9 @@ The header is identical on all pages.
 I have copied the style for the footer from the code institute's walkthrough project because I thought it was neat and clean.
 <br>
 The footer is identical on all pages.
+### Userstories.
+![Screenshot of Userstories](/static/images/ganaga-travel-userstories.png)<br>
+I have used the agile principle when I have planned and built my site.
 
 ### Existing features.
 * Responsive design
@@ -106,7 +110,7 @@ I would like to add the ability to add googlemaps in the future.
 # Testing.
 
 ## Auto Test.
-
+No tests
 ## Manual Test.
 ### Responsivenes.
 The site were tested to ensure responsiveness on screen sizes from 320px and upwards on Chrome and Edge.
@@ -130,7 +134,7 @@ Website is responsive on all screen sizes and no images are pixelated or stretch
 ## Adventure Testing.
 Adventure's page has been tested to ensure that users can add, change and delete without problems, without error messages.<br>
 Steps to test:
-1. Navigate to [Ganga Travel.](https://ganga-travel-5947dd277fb2.herokuapp.com/)
+1. Navigate to [Ganga Travel.](https://ganga-travel-5947dd277fb2.herokuapp.com/)<br>
 2. Add Adventure:
    - Click: New Adventure
    - Render: add_adventure.html
@@ -145,9 +149,9 @@ Steps to test:
     - Click: The blue Edit button.
     - Render: edit_adventure.html
     - Fill in the form
-            - Name: New Adventure to Edited Adventure
-            - Date: 2023-08-31 to 2023-08-28
-            - Featured_image: image to image2
+        - Name: New Adventure to Edited Adventure
+        - Date: 2023-08-31 to 2023-08-28
+        - Featured_image: image to image2
     - Click: Send
     - New Adventure is changed to Edited Adventure.
     - Render Django message "Adventure Changed"
@@ -228,20 +232,20 @@ Steps to test:
     - Only buttons on Destination page is visible for this user.
 * Break in and add adventure or Edit adventure.
     * Input: https://ganga-travel-5947dd277fb2.herokuapp.com/add/1/
-        result: Empty screen.
+        - result: Empty screen.
     * input: https://ganga-travel-5947dd277fb2.herokuapp.com/edit/5/1/
-        result: Empty screen.
+        - result: Empty screen.
 3. Log in as Peter with authorization: Guest.
     - Peter can view content and add comments.
     - Only comment button is visible for this user.
 * Break in and add adventure or Edit adventure.
     * Input: https://ganga-travel-5947dd277fb2.herokuapp.com/add/1/
-        result: Empty screen.
+        - result: Empty screen.
     * input: https://ganga-travel-5947dd277fb2.herokuapp.com/edit/5/1/
-        result: Empty screen.
+        - result: Empty screen.
 * Break in and Edit adventure.
     * Input: https://ganga-travel-5947dd277fb2.herokuapp.com/edit_post/6/5/1/
-        result: Empty screen.
+        - result: Empty screen.
 ### Expected:
 The expectation has been that the site works as it should without broken links and that the user receives feedback in all situations and that unauthorized users cannot get in the back way and change or add data.
 
@@ -250,18 +254,18 @@ The site works as expected
 
 ### Validator Testing
 - HTML
-  - No errors were returned when passing through the official [W3C validator](https://validator.w3.org)
+  - No errors were returned when passing through the official [W3C validator](https://validator.w3.org)<br>
   ![validator result index.html](/static/images/ganga-travel-index-validation.png)<br>
 
 - CSS
-  - No errors were found when passing through the official [(Jigsaw) validator](https://jigsaw.w3.org)
+  - No errors were found when passing through the official [(Jigsaw) validator](https://jigsaw.w3.org)<br>
   ![validator result style.css](/static/images/ganaga-travel-css-validator.png)<br>
 
-  - No errors were found when passing through the official [Jshint linter](https://jshint.com/)
-  ![Jshint result script](/static/images/ganaga-travel-js-validator.png)
+  - No errors were found when passing through the official [Jshint linter](https://jshint.com/)<br>
+  ![Jshint result script](/static/images/ganaga-travel-js-validator.png)<br>
 
   - No errors were found when passing through [CI Python Linter](https://pep8ci.herokuapp.com/#)
-  ![Jshint result script](/static/images/ganaga-travel-view.png)
+  ![Jshint result script](/static/images/ganaga-travel-view.png)<br>
 ### Bugs.
 When I open the app locally, everything works as expected, but when I open the app in heroku, javascript is not loaded, so some functions do not work.
 
