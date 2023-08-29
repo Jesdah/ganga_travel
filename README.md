@@ -73,7 +73,12 @@ I have used the agile principle when I have planned and built my site.
 
 ### Lucidchart.
 ![Screenshot of Lucidchart](/static/images/ganaga-travel-lucidchart.png)<br>
-Something that I have found very useful is Lucidchart. Lucidchart has helped a lot in that I've been able to draw out how I intended my app to work and how the logic should flow, every time I've gotten stuck I've always been able to use my Lucidchart to get back on track.
+The user is greeted by a message that says "you have no adventures" followed by a button that prompts the user to add new adventures.
+When a new adventure is created, the user can edit or delete the adventure, the user clicks on the title of the adventure and it takes them to the destination page.
+Here the user is met again with a prompt to add new destinations, once a destination has been created the user can edit or delete the destination.
+<br>
+When the user has created an adventure, the user can click on the title of the adventure, which leads the user to the destination page, here only destinations and comments that share the "adventure_id" with the adventure they have just clicked on are displayed.
+If the user creates a new adventure, only destinations and comments related to that adventure will be displayed. 
 
 ### Existing features.
 * Responsive design
@@ -113,8 +118,10 @@ I would like to add the ability to add googlemaps in the future.
 
 # Testing.
 
-## Auto Test.
-No tests
+## Unit Test.
+Automated tests have been created to ensure that the functions of Views.py work as intended.<br>
+These can be found in the tests.py
+
 ## Manual Test.
 ### Responsivenes.
 The site were tested to ensure responsiveness on screen sizes from 320px and upwards on Chrome and Edge.
@@ -169,13 +176,15 @@ Steps to test:
     - Render adventure page.
     - Render Django message "Adventure deleted" 
 <br>
+
 ## Destination Testing.
+
 Destination's page has been tested to ensure that users can add, change and delete without problems, without error messages.<br>
 Steps to test:
 1. Navigate to [Destination page](https://ganga-travel-5947dd277fb2.herokuapp.com/8/2/)
 2. Add Destination:
    - Click: New Destination
-   - Render: post_form
+   - Render: post_form Modal
    - Fill in the form
         - Title: New Destination
         - Content: This is a Destination
@@ -203,9 +212,13 @@ Steps to test:
     - Render Destination page.
     - Render Django message "Destination deleted" 
 <br>
+
 ## Comment Testing.
+
 Comment section has been tested to ensure that users can add and delete without problems, without error messages.<br>
+
 Steps to test:
+
 1. Navigate to [Destination page](https://ganga-travel-5947dd277fb2.herokuapp.com/8/2/)
 2. Add Comment:
    - Click: Comment
@@ -226,7 +239,9 @@ Steps to test:
         - comment is deleted.
     - Render Destination page.
 <br>
+
 ## Create, modify and delete as a non-authorized user.
+
 1. Log in as Jesper with authorization: Creator.
     - Jesper can create, modify and delete data.
     - All buttons is visible for this user.
@@ -234,23 +249,28 @@ Steps to test:
 2. Log in as David with authorization: Fellow traveler.
     - David can create, modify and delete destinations.
     - Only buttons on Destination page is visible for this user.
+
 * Break in and add adventure or Edit adventure.
     * Input: https://ganga-travel-5947dd277fb2.herokuapp.com/add/1/
         - result: Empty screen.
     * input: https://ganga-travel-5947dd277fb2.herokuapp.com/edit/5/1/
         - result: Empty screen.
+
 3. Log in as Peter with authorization: Guest.
     - Peter can view content and add comments.
     - Only comment button is visible for this user.
+
 * Break in and add adventure or Edit adventure.
     * Input: https://ganga-travel-5947dd277fb2.herokuapp.com/add/1/
         - result: Empty screen.
     * input: https://ganga-travel-5947dd277fb2.herokuapp.com/edit/5/1/
         - result: Empty screen.
+
 * Break in and Edit adventure.
     * Input: https://ganga-travel-5947dd277fb2.herokuapp.com/edit_post/6/5/1/
         - result: Empty screen.
 ### Expected:
+
 The expectation has been that the site works as it should without broken links and that the user receives feedback in all situations and that unauthorized users cannot get in the back way and change or add data.
 
 ### Actual:
@@ -270,12 +290,15 @@ The site works as expected
 
   - No errors were found when passing through [CI Python Linter](https://pep8ci.herokuapp.com/#)
   ![Jshint result script](/static/images/ganaga-travel-view.png)<br>
+
 ### Bugs.
 When I open the app locally, everything works as expected, but when I open the app in heroku, javascript is not loaded, so some functions do not work.
 
 I solved it by entering the script at the bottom of the relevant HTML page.
+
 ### Unfixed Bugs
 No unfixed bugs.
+
 ### Deployment.
 The following git commands were used throughout development to push code to the remote repo:
 

@@ -50,7 +50,13 @@
                     {% endif %}
                 </ul>
                 <span class="navbar-text text-muted">
-                    adventures of a software developer
+                    {% if perms.blog.add_adventure %}
+                    You have authorization: Creator
+                    {% elif perms.blog.add_post %}
+                    You have authorization: Fellow traveler
+                    {% elif perms.blog.add_comment %}
+                    You have authorization: Guest
+                    {% endif %}
                 </span>
             </div>
         </div>
