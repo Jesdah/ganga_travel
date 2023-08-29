@@ -71,6 +71,10 @@ The footer is identical on all pages.
 ![Screenshot of Userstories](/static/images/ganaga-travel-userstories.png)<br>
 I have used the agile principle when I have planned and built my site.
 
+### Lucidchart.
+![Screenshot of Lucidchart](/static/images/ganaga-travel-lucidchart.png)<br>
+Something that I have found very useful is Lucidchart. Lucidchart has helped a lot in that I've been able to draw out how I intended my app to work and how the logic should flow, every time I've gotten stuck I've always been able to use my Lucidchart to get back on track.
+
 ### Existing features.
 * Responsive design
 * Views 

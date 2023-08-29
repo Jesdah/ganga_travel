@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    # 'django.contrib.sites', is causing the adminpage to fail.
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
@@ -120,9 +119,17 @@ WSGI_APPLICATION = 'ganga_travel.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-   'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
+if DEBUG is True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
 
 
 
