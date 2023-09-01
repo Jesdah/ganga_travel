@@ -1,61 +1,85 @@
 {% extends "base.html" %}
 {% block content %}
 {% load crispy_forms_tags %}
+<!--render images-->
 {% load cloudinary %}
+
 {% if user.is_authenticated %}
 <h1 class="display-1">Your Adventures</h1>
+<!--messages-->
 {% if messages %}
 {% for message in messages %}
-    <div class="alert  {{ message.tags }}" id="message_adventure" role="alert">
-        {{ message }}
-    </div>
+<div class="alert  {{ message.tags }}" id="message_adventure" role="alert">
+  {{ message }}
+</div>
 {% endfor %}
 {% endif %}
+
+<!--Adventure for loop-->
 {% for adventure in adventure_list %}
 <div class="card adventure-card">
   {% if "placeholder" in adventure.featured_image.url %}
-  <img src="https://res.cloudinary.com/djs04srkx/image/upload/v1689779260/samples/landscapes/girl-urban-view.jpg" class="card-img fixed-card adventure-image" alt="Placeholder image of a girl standing with a city skyline in the background">
+  <img src="https://res.cloudinary.com/djs04srkx/image/upload/v1689779260/samples/landscapes/girl-urban-view.jpg"
+    class="card-img fixed-card adventure-image"
+    alt="Placeholder image of a girl standing with a city skyline in the background">
   {% else %}
-  <img src=" {{ adventure.featured_image.url }}" class="card-img fixed-card adventure-image" alt="Image you have selected">
+  <img src=" {{ adventure.featured_image.url }}" class="card-img fixed-card adventure-image"
+    alt="Image you have selected">
   {% endif %}
-    <div class="card-img-overlay card-tint">
-      <h1 class="card-title" ><a class= "title-style" href="{% url 'adventure_detail' adventure.id user.id %}">{{ adventure.name }}</a></h1>
-      <p class="card-text"><i class="fa-regular fa-calendar-days"></i> {{ adventure.date|date:"M d, Y" }}</p>
-      <p class="card-text" style="text-transform: capitalize;"><small>Created by: {{ adventure.author }}</small></p>
-      {% if perms.blog.change_adventure %}
-      <a href="/edit/{{ adventure.id }}/{{ user.id }}" class="btn btn-primary" aria-label="Edit Destination"><i class="fa-solid fa-pen" style="color:white"></i></a>
-      {% endif %}
-      {% if perms.blog.delete_adventure %}
-      <a class="btn btn-danger" aria-label="Delete Destination" onclick="return confirm('Are you sure you want to delete {{ adventure.name }}?')" href="/delete/{{ adventure.id }}/{{ user.id }}"><i class="fa-solid fa-trash" style="color: white;"></i></a>
-      {% endif %}
-    </div>
+  <div class="card-img-overlay card-tint">
+    <h1 class="card-title"><a class="title-style" href="{% url 'adventure_detail' adventure.id user.id %}">
+      {{ adventure.name }}</a></h1>
+    <p class="card-text"><i class="fa-regular fa-calendar-days"></i> {{ adventure.date|date:"M d, Y" }}</p>
+    <p class="card-text" style="text-transform: capitalize;"><small>Created by: {{ adventure.author }}</small></p>
+    <!--if user has permission to edit-->
+    {% if perms.blog.change_adventure %}
+    <a href="/edit/{{ adventure.id }}/{{ user.id }}" class="btn btn-primary" aria-label="Edit Destination"><i
+        class="fa-solid fa-pen" style="color:white"></i></a>
+    {% endif %}
+    <!--if user has permission to delete-->
+    {% if perms.blog.delete_adventure %}
+    <a class="btn btn-danger" aria-label="Delete Destination"
+      onclick="return confirm('Are you sure you want to delete {{ adventure.name }}?')"
+      href="/delete/{{ adventure.id }}/{{ user.id }}"><i class="fa-solid fa-trash" style="color: white;"></i></a>
+    {% endif %}
   </div>
-  {% empty %}
-  <p class="text-center">You have no Adventures planed.</p>
+</div>
+<!--if the for loop is empty-->
+{% empty %}
+<p class="text-center">You have no Adventures planed.</p>
 {% endfor %}
+<!--if user has permission to add adventure-->
 {% if perms.blog.add_adventure %}
-<a aria-label="Add adventure" class="btn btn-primary" href="/add/{{ user.id }}" style="color: white; text-decoration: none;">New Adventure <i class="fa-solid fa-sun"></i></a>
+<a aria-label="Add adventure" class="btn btn-primary" href="/add/{{ user.id }}"
+  style="color: white; text-decoration: none;">New Adventure <i class="fa-solid fa-sun"></i></a>
 {% endif %}
+
 {% else %}
+<!--messages for if the user loggs out-->
 {% if messages %}
 {% for message in messages %}
-    <div class="alert  {{ message.tags }}" role="alert">
-        {{ message }}
-    </div>
+<div class="alert  {{ message.tags }}" role="alert">
+  {{ message }}
+</div>
 {% endfor %}
 {% endif %}
+<!--text box for when the user is not logged in-->
 <div class="position-absolute top-50 start-50 translate-middle">
-<p class="card">Oops! it seems you are not logged in, log in or create an account here!</p>
+  <p class="card">Welcome to Ganga Travel!<br> Here you can create and plan new adventures with your friends,<br> all you
+    have
+    to do is log in or create an account.<br> Contact Admin to get full permissions at
+    <strong>admin@mail.com</strong></p>
   <div class="d-flex justify-content-center">
     <a class="btn btn-light" href="{% url 'account_login' %}" style="text-decoration: none; color: black;">sign in!</a>
   </div>
 </div>
 {% endif %}
+<!--timer for messages-->
 <script>
   var message_adv = document.getElementById("message_adventure");
 
-setTimeout(function(){ 
-   message_adv.style.display = "none"; 
-}, 3000);
+  setTimeout(function () {
+    message_adv.style.display = "none";
+  }, 3000);
 </script>
 {% endblock %}
