@@ -58,6 +58,8 @@
                     You have authorization: Fellow traveler
                     {% elif perms.blog.add_comment %}
                     You have authorization: Guest
+                    {% else %}
+                    You have authorization: Viewer
                     {% endif %}
                 </span>
             </div>
